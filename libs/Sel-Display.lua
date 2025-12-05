@@ -212,6 +212,8 @@ function update_job_states()
 		TotalHaste = "Haste",
 		TreasureMode = "Treasure",
 		WeaponskillMode = "Weaponskill",
+		Mainroll = "Main Roll",
+		Subroll = "Sub Roll",
 	}
 
 	stateBox:clear()
@@ -430,6 +432,20 @@ function update_job_states()
 		elseif n == 'Stance' then
 			if state.Stance.value ~= "None" then
 				stateBox:append(string.format("%sStance: %s%s    ", clr.w, clr.h, state.Stance.value))
+			end
+		elseif n == 'MainRoll' then
+			if (player.main_job == 'COR' or player.sub_job == 'COR') and state.MainRoll.value ~= "None" then
+				stateBox:append(string.format("%sMain Roll: %s%s    ", clr.w, clr.h, state.MainRoll.value))
+			end
+		elseif n == 'SecRoll' then
+			if (player.main_job == 'COR') and state.SecRoll.value ~= "None" then
+				stateBox:append(string.format("%sSec Roll: %s%s    ", clr.w, clr.h, state.SecRoll.value))
+			end
+		elseif n == 'UseSecRoll' then
+			if (player.main_job == 'COR') and state.UseSecRoll.value == true then
+				stateBox:append(string.format("%sRolling: %sSecondary    ", clr.w, clr.h))
+			elseif (player.main_job == 'COR') and state.UseSecRoll.value == false then
+					stateBox:append(string.format("%sRolling: %sPrimary    ", clr.w, clr.h))
 			end
 		else
 			stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))

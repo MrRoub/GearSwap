@@ -129,6 +129,8 @@ function init_include()
 	state.RegenMode		  	  = M{['description'] = 'Regen','None','Duration','Potency'}
 	state.WeaponSets	  	  = M{['description'] = 'Weapon Sets','None'}
 	state.WeaponskillMode     = M{['description'] = 'Weaponskill Mode','Match'}
+	state.MainRoll		  	  = M{['description'] = 'Main Roll', 'Chaos', 'Samurai', 'Tactician', 'Hunter','Monk', 'Wizard', 'Naturalist', 'Evoker'}
+	state.SecRoll		  	  = M{['description'] = 'Sec Roll', 'Samurai', 'Tactician', 'Hunter', 'Wizard', 'Warlock', 'Naturalist', 'Chaos', 'Evoker'}
 	
 	state.AdjustTargets	  	  = M(true, 'Automatically Adjust Targets')
 	state.AutoAcceptRaiseMode = M(false, 'Auto Accept Raise Mode')
@@ -168,6 +170,7 @@ function init_include()
 	state.UnlockWeapons		  = M(false, 'Unlock Weapons')
 	state.UseCustomTimers 	  = M(true, 'Use Custom Timers')
 	state.WakeUpWeapons 	  =	M(false, 'Wake Up Weapons')
+	state.UseSecRoll 		  = M(false, 'Use Secondary Roll')
 
 	state.Buff = {}
 	NotifyBuffs = S{}
