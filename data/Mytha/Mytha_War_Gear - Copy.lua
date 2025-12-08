@@ -1,8 +1,8 @@
 function user_job_setup()
 	-- Options: Override default values
-	state.OffenseMode:options('Normal')
+	state.OffenseMode:options('Normal','Acc')
 	state.WeaponskillMode:options('Normal','Proc')
-	state.HybridMode:options('Normal')
+	state.HybridMode:options('Normal', 'DT')
 	state.PhysicalDefenseMode:options('PDT')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
@@ -28,7 +28,30 @@ function init_gear_sets()
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
+	AF_head				={ name="Pumm. Mask +2"}
+	AF_body				={ name="Pumm. Lorica +4"}
+	AF_hands			={ name="Pumm. Mufflers +2"}
+	AF_legs				={ name="Pumm. Cuisses +4"}
+    AF_feet				={ name="Pumm. Calligae +4"}
+	
+	Relic_head			={ name="Agoge Mask +4"}
+    Relic_body			={ name="Agoge Lorica +3", augments={'Enhances "Aggressive Aim" effect',}}
+    Relic_hands			={ name="Agoge Mufflers +3", augments={'Enhances "Mighty Strikes" effect',}}
+    Relic_legs			={ name="Agoge Cuisses +3", augments={'Enhances "Warrior\'s Charge" effect',}}
+    Relic_feet			={ name="Agoge Calligae +3", augments={'Enhances "Tomahawk" effect',}}
 
+	Empy_head			={ name="Boii Mask +3"}
+    Empy_body			={ name="Boii Lorica +3"}
+    Empy_hands			={ name="Boii Mufflers +3"}
+    Empy_legs			={ name="Boii Cuisses +3"}
+    Empy_feet			={ name="Boii Calligae +3"}
+
+	JSE_neck			={ name="War. Beads +2", augments={'Path: A',}}
+	JSE_ear				={ name="Boii Earring +1", augments={'System: 1 ID: 1676 Val: 0','Accuracy+11','Mag. Acc.+11','Crit.hit rate+3',}}
+	JSE_STR_ws			={ name="Cichol's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
+	JSE_DA				={ name="Cichol's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
+	JSE_VIT_ws			={ name="Cichol's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%','Damage taken-5%',}}
+	JSE_STR_crit		={ name="Cichol's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10','Damage taken-5%',}}
 	-- Weapons sets
 	sets.weapons.GreatAxe = {main="Bunzi's Chopper",sub="Niobid Strap"}
 	sets.weapons.ShiningOne = {main="Shining One",sub="Niobid Strap"}
@@ -45,21 +68,28 @@ function init_gear_sets()
 
 	-- Precast Sets
 	
-	sets.Enmity = {}
+	sets.Enmity = {
+		head=Relic_head,
+		body="Emet Harness +1",
+		hands=gear.souv_hands,
+		legs=gear.odyssean_legs,
+		feet=gear.souv_feet,
+		ring1="Petrov Ring"
+	}
 	sets.Knockback = {}
 	sets.passive.Twilight = {head="Twilight Helm",body="Twilight Mail"}
 	
 	-- Precast sets to enhance JAs
-	sets.precast.JA['Berserk'] = {}
-	sets.precast.JA['Warcry'] = {}
-	sets.precast.JA['Defender'] = {}
-	sets.precast.JA['Aggressor'] = {}
-	sets.precast.JA['Mighty Strikes'] = {}
-	sets.precast.JA["Warrior's Charge"] = {}
-	sets.precast.JA['Tomahawk'] = {ammo="Thr. Tomahawk"}
-	sets.precast.JA['Retaliation'] = {}
-	sets.precast.JA['Restraint'] = {}
-	sets.precast.JA['Blood Rage'] = {}
+	sets.precast.JA['Berserk'] = {back=JSE_DA, body=AF_body, feet=Relic_feet}
+	sets.precast.JA['Warcry'] = {head=Relic_head}
+	sets.precast.JA['Defender'] = {hands=Relic_hands}
+	sets.precast.JA['Aggressor'] = {body=Relic_body}
+	sets.precast.JA['Mighty Strikes'] = {hands=Relic_hands}
+	sets.precast.JA["Warrior's Charge"] = {legs=Relic_legs}
+	sets.precast.JA['Tomahawk'] = {ammo="Thr. Tomahawk", feet=Relic_feet}
+	sets.precast.JA['Retaliation'] = {feet=Empy_feet}
+	sets.precast.JA['Restraint'] = {hands=Empy_hands}
+	sets.precast.JA['Blood Rage'] = {body=Empy_body}
 	sets.precast.JA['Brazen Rush'] = {}
 	sets.precast.JA['Provoke'] = set_combine(sets.Enmity,{})
 				   
@@ -86,20 +116,189 @@ function init_gear_sets()
 				   
 	sets.midcast.Cure = {}
 	
-	sets.Self_Healing = {}
-	sets.Cure_Received = {neck="Phalaina Locket",ring2="Kunaji Ring",waist="Gishdubar Sash"}
-
+	sets.Self_Healing = {
+		neck="Phalaina Locket",
+		hands="Buremte Gloves",
+		ring2="Kunaji Ring",
+		waist="Gishdubar Sash"
+	}
+	sets.Cure_Received = {
+		neck="Phalaina Locket",
+		hands="Buremte Gloves",
+		ring2="Kunaji Ring",
+		waist="Gishdubar Sash"
+	}
+	sets.Phalanx_Received = {
+		body=gear.odyssean_body,
+		hands=gear.souv_hands,
+		legs=gear.sakpata_legs,
+		feet=gear.souv_feet
+	}		
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
-	sets.precast.WS = {ammo="Oshasha's Treatise",
-		head="Nyame Helm",neck="Rep. Plat. Medal",ear1="Moonshade Earring",ear2="Boii Earring +1",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Sroda Ring",ring2="Cornelia's Ring",
-		back="Null Shawl",waist="Sailfi Belt +1",legs="Nyame Flanchard",feet="Nyame Sollerets"}
-		
-	sets.precast.WS.Proc = {ammo="Staunch Tathlum +1",
-		head="Volte Cap",neck="Combatant's Torque",ear1="Zennaroi Earring",ear2="Boii Earring +1",
-		body="Volte Harness",hands="Volte Bracers",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Valorous Hose",feet="Valorous Greaves"}
+    sets.precast.WS = {
+		ammo="Knobkierrie", 
+		head=Relic_head,
+		neck=JSE_neck,
+		ear1="Schere Earring",
+		ear2="Thrud earring",
+		body=AF_body,
+		hands=Empy_hands,
+		ring1="Regal Ring",
+		ring2="Ephramad's Ring",
+		back=JSE_STR_ws,
+		waist=gear.sailfi_belt,
+		legs=Empy_legs,
+		feet="Sulev. Leggings +2"
+	}
+
+	sets.precast.WS.SomeAcc = set_combine(sets.precast.WS, {})
+	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
+	sets.precast.WS.FullAcc = set_combine(sets.precast.WS, {})
+	sets.precast.WS.Fodder = set_combine(sets.precast.WS, {})
+
+    -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.	
+    sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
+		ear2=gear.moonshade_earring,
+		ring1="Sroda Ring"
+	})
+    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {
+		ring1="Epaminondas's Ring"
+	})
+    
+	sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS, {
+		ring1="Niqmaddu Ring",
+		ear1=gear.moonshade_earring,
+		feet=gear.sakpata_feet,
+		back=JSE_VIT_ws
+	})
+    sets.precast.WS['Upheaval'].Acc = set_combine(sets.precast.WS['Upheaval'], {
+		ammo="Crepuscular Pebble",
+		ring2="Niqmaddu Ring",
+		ear1="Lugra Earring +1",
+		feet="Sulev. Leggings +2",
+		back=JSE_VIT_ws
+	})
+
+    sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {
+		ammo="Crepuscular Pebble",
+		head=gear.sakpata_head,
+		body=gear.sakpata_body,
+		hands=gear.sakpata_hands,
+		feet=gear.sakpata_feet,
+		ear2="Schere Earring",
+		ring1="Sroda Ring",
+		ring2="Niqmaddu Ring",
+	})
+    sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'], {
+		ammo="Coiste Bodhar",
+		body=Relic_body,
+		hands=Relic_hands,
+		feet=gear.sakpata_feet,
+		ear2="Schere Earring",
+		ring1="Sroda Ring",
+		ring2="Niqmaddu Ring",
+		back=JSE_DA
+	})
+	
+	sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS, {
+		ammo="Yetshila +1",
+		ear1=gear.moonshade_earring,
+		ear2=JSE_ear,
+		ring1="Sroda Ring",
+		ring2="Niqmaddu Ring",
+		feet=Empy_feet,
+	})
+	sets.precast.WS['Impulse Drive'].Acc = set_combine(sets.precast.WS['Impulse Drive'], {
+		ammo="Yetshila +1",
+		ear2=JSE_ear,
+		body=gear.sakpata_body,
+		--ring1="Begrudging Ring", (Best Low buff Option)
+		ring1="Sroda Ring",
+		ring2="Niqmaddu Ring",
+		feet=Empy_feet
+	})
+
+	sets.precast.WS['Scourge'] = set_combine(sets.precast.WS, {
+		ear1="Thrud earring",
+		ring1="Sroda Ring",
+		ring2="Niqmaddu Ring"
+	})
+	sets.precast.WS['Scourge'].Acc = set_combine(sets.precast.WS['Scourge'], {
+		legs=gear.nyame_legs,
+		feet=gear.nyame_feet,
+		ear1="Schere Earring",
+		ear2="Thrud earring",
+		ring1="Niqmaddu Ring",
+		ring2="Regal Ring"
+	})
+
+    sets.precast.WS['Ruinator'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Ruinator'].Acc = set_combine(sets.precast.WS['Ruinator'], {})
+	
+    sets.precast.WS['Rampage'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Rampage'].Acc = set_combine(sets.precast.WS['Rampage'], {})
+	
+    sets.precast.WS['Raging Rush'] = set_combine(sets.precast.WS, {
+		ammo="Yetshila +1",
+		head=Empy_head,
+		body=gear.sakpata_body,
+		hands=gear.sakpata_hands,
+		feet=Empy_feet,
+		ring1="Sroda Ring",
+		ring2="Niqmaddu Ring",
+		ear2=JSE_ear
+	})
+    sets.precast.WS['Raging Rush'].Acc = set_combine(sets.precast.WS['Raging Rush'], {
+		ammo="Yetshila +1",
+		head=Empy_head,
+		hands="Flam. Manopolas +2",
+		feet=Empy_feet,
+		ring1="Begrudging Ring",
+		ring2="Niqmaddu Ring",
+		ear2=JSE_ear
+	})
+	
+    sets.precast.WS["Ukko's Fury"] = set_combine(sets.precast.WS, {
+		ammo="Yetshila +1",
+		head=Empy_head,
+		feet=Empy_feet,
+		ring1="Niqmaddu Ring",
+		ear2=JSE_ear,
+		back=JSE_STR_crit
+	})
+    sets.precast.WS["Ukko's Fury"].Acc = set_combine(sets.precast.WS["Ukko's Fury"], {
+		ring1="Epaminondas's Ring",
+		ring2="Niqmaddu Ring",
+		back=JSE_STR_ws
+	})
+	
+    sets.precast.WS["King's Justice"] = set_combine(sets.precast.WS, {
+		ring2="Niqmaddu Ring",
+		ear1="Lugra Earring +1",
+	})
+    sets.precast.WS["King's Justice"].Acc = set_combine(sets.precast.WS["King's Justice"], {})
+
+	sets.precast.WS['Steel Cyclone'] = set_combine(sets.precast.WS, {
+		ring1="Sroda Ring",
+		ring2="Niqmaddu Ring",
+		waist="Fotia Belt",
+		feet=gear.sakpata_feet
+	})
+	sets.precast.WS['Steel Cyclone'].Acc = set_combine(sets.precast.WS['Steel Cyclone'], {
+		ear1="Lugra Earring +1",
+		ring2="Niqmaddu Ring",
+		feet="Sulev. Leggings +2"
+	})
+	sets.precast.WS['Fell Cleave'] = set_combine(sets.precast.WS, {
+		ear1=gear.moonshade_earring,
+		ring1="Epaminondas's Ring"
+	})
+	sets.precast.WS['Fell Cleave'].Acc = set_combine(sets.precast.WS['Fell Cleave'], {
+		ring2="Niqmaddu Ring",
+		ear1="Lugra Earring +1",
+	})
+	sets.precast.WS.Proc = {}
 	
 --[[WS set examples.
 	sets.precast.WS.SomeAcc = set_combine(sets.precast.WS, {back="Letalis Mantle",})
@@ -158,12 +357,12 @@ function init_gear_sets()
 ]]
 
 	-- Swap to these on Moonshade using WS if at 3000 TP
-	sets.MaxTP = {}
-	sets.AccMaxTP = {}
-	sets.AccDayMaxTPWSEars = {}
-	sets.DayMaxTPWSEars = {}
-	sets.AccDayWSEars = {}
-	sets.DayWSEars = {}
+	sets.MaxTP = {ear1="Lugra Earring +1",ear2="Lugra Earring",}
+	sets.AccMaxTP = {ear1="Mache Earring +1",ear2="Telos Earring"}
+	sets.AccDayMaxTPWSEars = {ear1="Mache Earring +1",ear2="Telos Earring"}
+	sets.DayMaxTPWSEars = {ear1="Ishvara Earring",ear2="Brutal Earring",}
+	sets.AccDayWSEars = {ear1="Mache Earring +1",ear2="Telos Earring"}
+	sets.DayWSEars = {ear1="Brutal Earring",ear2=gear.moonshade_earring,}
 	
 	--Specialty WS set overwrites.
 	sets.AccWSMightyCharge = {}
@@ -179,42 +378,163 @@ function init_gear_sets()
 	 sets.resting = {}
 		   
 	-- Idle sets
-	sets.idle = {ammo="Staunch Tathlum +1",
-		head="Null Masque",neck="Null Loop",ear1="Genmei Earring",ear2="Sanare Earring",
-		body="Hjarrandi Breast.",hands="Nyame Gauntlets",ring1="Defending Ring",ring2="Shadow Ring",
-		back="Shadow Mantle",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+	sets.idle = {
+		ammo="Staunch Tathlum +1",
+		head=Empy_head,
+		neck="Rep. Plat. Medal",
+		ear1="Genmei Earring",
+		ear2="Ethereal Earring",
+		body="Sacro Breastplate",
+		hands=gear.sakpata_hands,
+		ring1="Defending Ring",
+		ring2="Moonlight Ring",
+		back=JSE_DA,
+		waist="Null Belt",
+		legs=gear.sakpata_legs,
+		feet=gear.sakpata_feet
+	}
+
+	sets.idle.Town = set_combine(sets.idle, {
+		ammo="Aurgelmir Orb +1",
+		neck=JSE_neck,
+		ear1=gear.schere_earring,
+		ear2=JSE_ear,
+		body=Empy_body,
+		hands=Empy_hands,
+		ring1="Moonlight Ring",
+		back="Null Shawl",
+		waist="Ioskeha Belt +1",
+		legs=Empy_legs,
+		feet=Empy_feet
+	})
 		
 	-- Defense sets
-	sets.defense.PDT = {ammo="Staunch Tathlum +1",
-		head="Hjarrandi Helm",neck="Null Loop",ear1="Dedition Earring",ear2="Boii Earring +1",
-		body="Hjarrandi Breast.",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
-		
-	sets.defense.MDT = {ammo="Staunch Tathlum +1",
-		head="Hjarrandi Helm",neck="Null Loop",ear1="Dedition Earring",ear2="Boii Earring +1",
-		body="Hjarrandi Breast.",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
-		
-	sets.defense.MEVA = {ammo="Staunch Tathlum +1",
-		head="Hjarrandi Helm",neck="Null Loop",ear1="Dedition Earring",ear2="Boii Earring +1",
-		body="Hjarrandi Breast.",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+	sets.defense.PDT = {
+		head=gear.sakpata_head,
+    	body=gear.sakpata_body,
+    	hands=gear.sakpata_hands,
+    	legs=gear.sakpata_legs,
+    	feet=gear.sakpata_feet,
+    	neck=JSE_neck,
+    	waist="Null Belt",
+    	ear1="Alabaster Earring",
+    	ear2=JSE_ear,
+    	ring1="Murky Ring",
+    	ring2="Moonlight Ring",
+    	back="Null Shawl"
+	}
+	sets.defense.PDTHP = set_combine(sets.defense.PDT, {
+		body="Sacro Breastplate",
+		hands=gear.souv_hands,
+		feet=gear.souv_feet,
+		waist="Plat. mog. Belt"
+	})
+	sets.defense.MDT = {
+		head=gear.sakpata_head,
+    	body=gear.sakpata_body,
+    	hands=gear.sakpata_hands,
+    	legs=gear.sakpata_legs,
+    	feet=gear.sakpata_feet,
+    	neck=JSE_neck,
+    	waist="Null Belt",
+    	ear1="Alabaster Earring",
+    	ear2=JSE_ear,
+    	ring1="Murky Ring",
+    	ring2="Moonlight Ring",
+    	back="Null Shawl"
+	}
+	sets.defense.MDTReraise = set_combine(sets.defense.MDT, {})
+	
+	sets.defense.MEVA = {
+		head=gear.sakpata_head,
+    	body=gear.sakpata_body,
+    	hands=gear.sakpata_hands,
+    	legs=gear.sakpata_legs,
+    	feet=gear.sakpata_feet,
+    	neck=JSE_neck,
+    	waist="Null Belt",
+    	ear1="Alabaster Earring",
+    	ear2="Eabani Earring",
+    	ring1="Murky Ring",
+    	ring2="Moonlight Ring",
+    	back="Null Shawl"
+	}
 
 	sets.Kiting = {ring2="Shneddick Ring"}
 	sets.Reraise = {}
 	sets.buff.Doom = set_combine(sets.buff.Doom, {})
 	sets.buff.Sleep = {}
 	 
-	-- Engaged sets
-	sets.engaged = {ammo="Ginsen",
-		head="Hjarrandi Helm",neck="Combatant's Torque",ear1="Dedition Earring",ear2="Boii Earring +1",
-		body="Hjarrandi Breast.",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
-		back="Null Shawl",waist="Windbuffet Belt +1",legs="Nyame Flanchard",feet="Nyame Sollerets"}
-		
-	sets.engaged.Acc = {ammo="Ginsen",
-		head="Hjarrandi Helm",neck="Null Loop",ear1="Telos Earring",ear2="Boii Earring +1",
-		body="Hjarrandi Breast.",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+    -- Engaged sets
+	--DT:-37%, acc:1564, DA:101%, QA:3%
+	sets.engaged = {
+		ammo="Coiste Bodhar",
+		head="Hjarrandi Helm",
+		neck=gear.vim_torque,
+		ear1=gear.schere_earring,
+		ear2=JSE_ear,
+		body=Empy_body,
+		hands=gear.sakpata_hands,
+		ring1="Niqmaddu Ring",
+		ring2="Chirich Ring +1",
+		back=JSE_DA,
+		waist="Ioskeha Belt +1",
+		legs=AF_legs,
+		feet=AF_feet
+	}
+	--DT:-38, acc:1599, DA:105%, TA:2%
+    sets.engaged.Acc = set_combine (sets.engaged, {
+		head=Empy_head,
+		neck=JSE_neck,
+		waist=gear.sailfi_belt,
+		ring1="Chirich Ring +1",
+	})
+
+	--DT:42, acc:1562, DA:101%, QA:3%
+	sets.engaged.DT = set_combine (sets.engaged, {
+		ring2="Moonlight Ring"
+	})
+	--DT:48, acc:1595, DA:105%, TA:2%
+	sets.engaged.Acc.DT = set_combine (sets.engaged.DT, {
+		head=Empy_head,
+		neck=JSE_neck,
+		ring1="Moonlight Ring",
+		waist=gear.sailfi_belt
+	})
+
+	sets.engaged.Ragnarok = set_combine (sets.engaged, {})
+	sets.engaged.Ragnarok.Acc = set_combine (sets.engaged.Acc, {})
+	sets.engaged.Ragnarok.DT = set_combine (sets.engaged.DT, {})
+	sets.engaged.Ragnarok.Acc.DT = set_combine (sets.engaged.Acc.DT, {})
+    sets.engaged.Ragnarok.AM = set_combine (sets.engaged.Ragnarok, {})
+	sets.engaged.Ragnarok.Acc.AM = set_combine (sets.engaged.Ragnarok.Acc, {})
+	sets.engaged.Ragnarok.DT.AM = set_combine (sets.engaged.Ragnarok.DT, {})
+	sets.engaged.Ragnarok.Acc.DT.AM = set_combine (sets.engaged.Ragnarok.Acc.DT, {})
+
+	--DT:-33%, acc:1455, DA:101%, TA:2%, QA:3%
+	sets.engaged.Naegling = set_combine (sets.engaged, {
+		ammo="Aurgelmir Orb +1",
+		body=gear.sakpata_body,
+		waist=gear.sailfi_belt
+	})
+	--DT:-38%, acc:1542, DA:102%, TA:2%
+	sets.engaged.Naegling.Acc = set_combine (sets.engaged.Naegling, {
+		head=Empy_head,
+		body=Empy_body,
+		neck=JSE_neck,
+		ring1="Chirich Ring +1"
+	})
+	--DT:38%, acc:1453, DA:102%, TA:2%, QA:3%
+	sets.engaged.Naegling.DT = set_combine (sets.engaged.Naegling, {
+		ring2="Moonlight Ring"
+	})
+	--DT:48%, acc:1538, DA:102%, TA:2%
+	sets.engaged.Naegling.Acc.DT = set_combine (sets.engaged.Naegling.DT, {
+		head=Empy_head,
+		body=Empy_body,
+		neck=JSE_neck,
+		ring1="Moonlight Ring"
+	})
 		
 --[[Engaged set examples
 	sets.engaged.Charge = {}
@@ -1243,5 +1563,5 @@ function select_default_macro_book()
 end
 
 function user_job_lockstyle()
-	windower.chat.input('/lockstyleset 020')
+	windower.chat.input('/lockstyleset 003')
 end

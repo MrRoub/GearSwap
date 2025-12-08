@@ -447,6 +447,18 @@ function update_job_states()
 			elseif (player.main_job == 'COR') and state.UseSecRoll.value == false then
 					stateBox:append(string.format("%sRolling: %sPrimary    ", clr.w, clr.h))
 			end
+		elseif n == 'BarElement' then
+			if (player.main_job == 'WHM') and state.BarElement.value ~= "None" then
+				stateBox:append(string.format("%sBar Element: %s%s    ", clr.w, clr.h, state.BarElement.value))
+			end
+		elseif n == 'BarStatus' then
+			if (player.main_job == 'WHM') and state.BarStatus.value ~= "None" then
+				stateBox:append(string.format("%sBar Status: %s%s    ", clr.w, clr.h, state.BarStatus.value))
+			end
+		elseif n == 'BoostSpell' then
+			if (player.main_job == 'WHM') and state.BoostSpell.value ~= "None" then
+				stateBox:append(string.format("%sBoost Spell: %s%s    ", clr.w, clr.h, state.BoostSpell.value))
+			end		
 		else
 			stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))
 		end
