@@ -112,18 +112,18 @@ function job_precast(spell, spellMap, eventArgs)
 				return
 			elseif state.Buff['SJ Restriction'] then
 				return
-			elseif player.sub_job == 'SAM' and player.tp > 1850 and abil_recasts[140] < latency then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Sekkanoki" <me>')
-				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-				add_tick_delay(1.1)
-				return
-			elseif player.sub_job == 'SAM' and abil_recasts[134] < latency then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Meditate" <me>')
-				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-				add_tick_delay(1.1)
-				return
+			--elseif player.sub_job == 'SAM' and player.tp > 1850 and abil_recasts[140] < latency then
+			--	eventArgs.cancel = true
+			--	windower.chat.input('/ja "Sekkanoki" <me>')
+			--	windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			--	add_tick_delay(1.1)
+			--	return
+			--elseif player.sub_job == 'SAM' and abil_recasts[134] < latency then
+			--	eventArgs.cancel = true
+			--	windower.chat.input('/ja "Meditate" <me>')
+			--	windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			--	add_tick_delay(1.1)
+			--	return
 			end
 		end
 	elseif spell.type == "JobAbility" then
