@@ -180,9 +180,6 @@ function init_include()
 	state.UseCustomTimers 	  = M(true, 'Use Custom Timers')
 	state.WakeUpWeapons 	  =	M(false, 'Wake Up Weapons')
 	state.UseSecRoll 		  = M(false, 'Use Secondary Roll')
-	state.UseDummies 		  = M(false, 'UseDummies')
-    state.UseFifthSong 		  = M(false, 'UseFifthSong')
-	state.UseDummies 		  = M(false, 'UseDummies')
 	
 
 	state.Buff = {}

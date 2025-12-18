@@ -459,18 +459,6 @@ function update_job_states()
 			if (player.main_job == 'WHM') and state.BoostSpell.value ~= "None" then
 				stateBox:append(string.format("%sBoost Spell: %s%s    ", clr.w, clr.h, state.BoostSpell.value))
 			end
-		elseif n == 'UseFifthSong' then
-			if (player.main_job == 'BRD') and state.UseFifthSong.value == true then
-				stateBox:append(string.format("%sUsing Fifth Song    ", clr.w))
-			end
-		elseif n == 'CurrentPlaylist' then
-			if (player.main_job == 'BRD') and state.CurrentPlaylist.value ~= "None" then
-				stateBox:append(string.format("%sPlaylist: %s%s    ", clr.w, clr.h, state.CurrentPlaylist.value))
-			end
-		elseif n == 'UseDummies' then
-			if (player.main_job == 'BRD') and state.UseDummies.value == true then
-				stateBox:append(string.format("%sUsing Dummies    ", clr.w))
-			end
 		else
 			stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))
 		end
