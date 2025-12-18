@@ -134,11 +134,11 @@ function init_include()
 	state.BarElement 		  = M{['description']= 'BarElement', 'Barfira', 'Barblizzara', 'Baraera', 'Barstonra', 'Barthundra', 'Barwatera'}
     state.BarStatus 		  = M{['description']= 'BarStatus', 'Baramnesra', 'Barvira', 'Barparalyzra', 'Barsilencera', 'Barpetra', 'Barpoisonra', 'Barblindra', 'Barsleepra'}
     state.BoostSpell 		  = M{['description']= 'BoostSpell', 'Boost-STR', 'Boost-INT', 'Boost-AGI', 'Boost-VIT', 'Boost-DEX', 'Boost-MND', 'Boost-CHR'}
-    state.songa				  = M{['description']= 'Song A', 'Advancing', 'Victory', 'Honor', 'MinuetV', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','BalladIII','BalladII'}
-    state.songb				  = M{['description']= 'Song B', 'Victory', 'Honor', 'MinuetV', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','Advancing','BalladIII','BalladII'}
-    state.songc				  = M{['description']= 'Song C', 'MinuetV', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','Advancing','Victory', 'Honor', 'BalladIII','BalladII'}
-    state.songd				  = M{['description']= 'Song D', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','Advancing','Victory', 'Honor', 'MinuetV','BalladIII','BalladII'}
-    state.songe				  = M{['description']= 'Song E', 'MinuetIII', 'sword', 'blade', 'MinneIV','Advancing','Victory', 'Honor', 'MinuetV', 'MinuetIV','BalladIII','BalladII'}
+    state.songa				  = M{['description']= 'Song A', 'Advancing', 'Victory', 'Honor', 'MinuetV', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','MinneV','BalladIII','BalladII'}
+    state.songb				  = M{['description']= 'Song B', 'Victory', 'Honor', 'MinuetV', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','MinneV','Advancing','BalladIII','BalladII'}
+    state.songc				  = M{['description']= 'Song C', 'MinuetV', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','MinneV','Advancing','Victory', 'Honor', 'BalladIII','BalladII'}
+    state.songd				  = M{['description']= 'Song D', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','MinneV','Advancing','Victory', 'Honor', 'MinuetV','BalladIII','BalladII'}
+    state.songe				  = M{['description']= 'Song E', 'MinuetIII', 'sword', 'blade', 'MinneIV','MinneV','Advancing','Victory', 'Honor', 'MinuetV', 'MinuetIV','BalladIII','BalladII'}
 	state.CurrentPlaylist     = M{['description']='Current Playlist'}
 	
 	state.AdjustTargets	  	  = M(true, 'Automatically Adjust Targets')

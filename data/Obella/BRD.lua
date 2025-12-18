@@ -385,15 +385,19 @@ end
 function check_song()
 	if state.AutoSongMode.value then
 		if not buffactive.march then
-			windower.chat.input('/ma "Honor March" <me>')
+			windower.chat.input('/ma "'..sa[state.songa.current]..'" <me>')
 			add_tick_delay()
 			return true
 		elseif not buffactive.minuet then
 			windower.chat.input('/ma "Valor Minuet V" <me>')
 			add_tick_delay()
 			return true
-		elseif not buffactive.madrigal then
-			windower.send_command('gs c set ExtraSongsMode FullLength;input /ma "Blade Madrigal" <me>')
+		elseif not buffactive.capriccio then
+			windower.send_command('gs c set ExtraSongsMode Dummy;input /ma "Gold Capriccio" <me>')
+			add_tick_delay()
+			return true
+		elseif not buffactive.Fantasia then
+			windower.send_command('gs c set ExtraSongsMode Dummy;input /ma "Shining Fantasia" <me>')
 			add_tick_delay()
 			return true
 		else

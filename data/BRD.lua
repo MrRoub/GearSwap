@@ -385,7 +385,7 @@ end
 function check_song()
 	if state.AutoSongMode.value then
 		if not buffactive.march then
-			windower.chat.input('/ma "Honor March" <me>')
+			windower.chat.input('/ma "Victory March" <me>')
 			add_tick_delay()
 			return true
 		elseif not buffactive.minuet then
