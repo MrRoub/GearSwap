@@ -56,8 +56,8 @@ function job_setup()
 	state.Buff['Divine Caress'] = buffactive['Divine Caress'] or false
 	state.Buff['Celerity'] = buffactive['Celerity'] or false
 
-	state.AutoCaress = M(true, 'Auto Caress Mode')
-	state.AutoCelerity = M(true, 'Auto Celerity Mode')
+	state.AutoCaress = M(false, 'Auto Caress Mode')
+	state.AutoCelerity = M(false, 'Auto Celerity Mode')
 	state.Gambanteinn = M(false, 'Gambanteinn Cursna Mode')
 	state.BlockLowDevotion = M(true, 'Block Low Devotion')
 
@@ -182,23 +182,23 @@ function job_pretarget(spell, spellMap, eventArgs)
 end
 
 function job_precast(spell, spellMap, eventArgs)
-	if spell.action_type == 'Magic' then
-		if (spell.english == 'Arise' or spell.english == 'Raise III') then
-			if state.AutoCelerity.value and not state.Buff['Celerity'] and (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and get_current_stratagem_count() > 0 then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Celerity" <me>')
-				windower.chat.input:schedule(1,'/ma "'..spell.english..'" '..spell.target.raw..'')
-			end
-		elseif spellMap == 'StatusRemoval' and not (spell.english == "Erase" or spell.english == "Esuna" or spell.english == "Sacrifice") then
-			local abil_recasts = windower.ffxi.get_ability_recasts()
-			if abil_recasts[32] < latency and not silent_check_amnesia() and state.AutoCaress.value then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Divine Caress" <me>')
-				windower.chat.input:schedule(1,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				return
-			end
-		end
-	elseif spell.type == 'JobAbility' then
+	--if spell.action_type == 'Magic' then
+		--if (spell.english == 'Arise' or spell.english == 'Raise III') then
+			--if state.AutoCelerity.value and not state.Buff['Celerity'] and (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and get_current_stratagem_count() > 0 then
+				--eventArgs.cancel = true
+				--windower.chat.input('/ja "Celerity" <me>')
+				--windower.chat.input:schedule(1,'/ma "'..spell.english..'" '..spell.target.raw..'')
+			--end
+		--elseif spellMap == 'StatusRemoval' and not (spell.english == "Erase" or spell.english == "Esuna" or spell.english == "Sacrifice") then
+		--	local abil_recasts = windower.ffxi.get_ability_recasts()
+		--	if abil_recasts[32] < latency and not silent_check_amnesia() and state.AutoCaress.value then
+		--		eventArgs.cancel = true
+		--		windower.chat.input('/ja "Divine Caress" <me>')
+		--		windower.chat.input:schedule(1,'/ma "'..spell.english..'" '..spell.target.raw..'')
+		--		return
+		--	end
+		--end
+	if spell.type == 'JobAbility' then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if spell.english == 'Devotion' and state.BlockLowDevotion.value and abil_recasts[28] < latency and player.hpp < 50 then
 			eventArgs.cancel = true
