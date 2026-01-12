@@ -129,8 +129,8 @@ function init_include()
 	state.RegenMode		  	  = M{['description'] = 'Regen','None','Duration','Potency'}
 	state.WeaponSets	  	  = M{['description'] = 'Weapon Sets','None'}
 	state.WeaponskillMode     = M{['description'] = 'Weaponskill Mode','Match'}
-	state.MainRoll		  	  = M{['description'] = 'Main Roll', 'Chaos', 'Samurai', 'Tactician', 'Hunter','Monk', 'Wizard', 'Naturalist', 'Evoker'}
-	state.SecRoll		  	  = M{['description'] = 'Sec Roll', 'Samurai', 'Tactician', 'Hunter', 'Wizard', 'Warlock', 'Naturalist', 'Chaos', 'Evoker'}
+	state.MainRoll		  	  = M{['description'] = 'Main Roll', 'Chaos', 'Samurai', 'Tactician', 'Hunter','Monk', 'Wizard', 'Naturalist', 'Evoker', 'Miser'}
+	state.SecRoll		  	  = M{['description'] = 'Sec Roll', 'Samurai', 'Tactician', 'Hunter', 'Wizard', 'Warlock', 'Naturalist', 'Chaos', 'Evoker', 'Miser'}
 	state.BarElement 		  = M{['description']= 'BarElement', 'Barfira', 'Barblizzara', 'Baraera', 'Barstonra', 'Barthundra', 'Barwatera'}
     state.BarStatus 		  = M{['description']= 'BarStatus', 'Baramnesra', 'Barvira', 'Barparalyzra', 'Barsilencera', 'Barpetra', 'Barpoisonra', 'Barblindra', 'Barsleepra'}
     state.BoostSpell 		  = M{['description']= 'BoostSpell', 'Boost-STR', 'Boost-INT', 'Boost-AGI', 'Boost-VIT', 'Boost-DEX', 'Boost-MND', 'Boost-CHR'}
