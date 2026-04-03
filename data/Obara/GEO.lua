@@ -127,11 +127,11 @@ function job_pretarget(spell, spellMap, eventArgs)
 				end
 			end
 		elseif spell.english:startswith('Geo') then
-			if set.contains(spell.targets, 'Enemy') then
+			if spell.targets:contains('Enemy') then
 				if ((spell.target.type == 'PLAYER' and not spell.target.charmed) or (spell.target.type == 'NPC' and spell.target.in_party)) then
 					eventArgs.cancel = true
 				end
-			elseif not ((spell.target.type == 'PLAYER' and not spell.target.charmed and spell.target.in_party) or (spell.target.type == 'NPC' and spell.target.in_party) or (spell.target.raw == '<stpt>' or spell.target.raw == '<stal>' or spell.target.raw == '<st>')) then
+			elseif not (spell.target.raw:startswith('<st') or spell.target.in_party) then
 				change_target('<me>')
 			end
 		end
@@ -378,6 +378,46 @@ function job_self_command(commandArgs, eventArgs)
 		end
 		add_to_chat(122,'Your Auto Entrustee target is set to '..autoentrustee..'.')
 		if state.DisplayMode.value then update_job_states()	end
+	elseif lowerCommand == 'geo' then
+		if commandArgs[2] then
+			local lowerSubCommand = commandArgs[2]:lower()
+			if lowerSubCommand == 'geo' then
+				if commandArgs[3] then
+					if commandArgs[3]:startswith('st') then
+						local spell_table = res.spells[get_spell_id_by_name('Geo-'..autogeo)]
+						if spell_table.targets:contains('Enemy') then
+							windower.chat.input('/ma "Geo-'..autogeo..'" <stnpc>')
+						else
+							windower.chat.input('/ma "Geo-'..autogeo..'" <stpc>')
+						end
+					else
+						windower.chat.input('/ma "Geo-'..autogeo..'" '..commandArgs[3])
+					end
+				else
+					windower.chat.input('/ma "Geo-'..autogeo..'" <bt>')
+				end
+			elseif lowerSubCommand == 'indi' then
+				if state.Buff.Entrust then
+					if commandArgs[3] then
+						windower.chat.input('/ma "Indi-'..autoindi..'" '..commandArgs[3])
+					elseif player.target and not spell.target.type == 'SELF' and player.target.in_party then
+						windower.chat.input('/ma "Indi-'..autoindi..'" <t>')
+					else
+						windower.chat.input('/ma "Indi-'..autoindi..'" '..autoentrustee)
+					end
+				else
+					windower.chat.input('/ma "Indi-'..autoindi..'" <me>')
+				end
+			elseif lowerSubCommand == 'entrust' then
+				if commandArgs[3] then
+					send_command('@input /ja "Entrust" <me>; wait 1.1; input /ma "Indi-'..autoentrust..'" '..commandArgs[3])
+				else
+					send_command('@input /ja "Entrust" <me>; wait 1.1; input /ma "Indi-'..autoentrust..'" '..autoentrustee)
+				end
+			end
+		else
+			add_to_chat(123,'The geo subcommands are: Geo, Indi, Entrust')
+		end
 	end
 end
 

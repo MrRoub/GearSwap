@@ -193,7 +193,7 @@ data.weaponskills.elemental = S{'Wildfire','Leaden Salute','Sanguine Blade','Aeo
 'Blade: Teki','Blade: To','Blade: Chi','Blade: Ei','Blade: Yu','Burning Blade','Red Lotus Blade','Shining Blade',
 'Seraph Blade','Gust Slash','Cyclone','Shining Strike','Seraph Strike','Frostbite','Freezebite','Herculean Slash','Gale Axe',
 'Cloudsplitter','Primal Rend','Thunder Thrust','Raiden Thrust','Rock Crusher','Earth Crusher','Starburst','Sunburst',
-'Garland of Bliss','Flaming Arrow','Hot Shot'}
+'Garland of Bliss','Flaming Arrow','Hot Shot',"Uriel Blade","Energy Steal","Energy Drain","Omniscience","Vidohunir"}
 
 data.weaponskills.statue_ws = {['COR']='Leaden Salute',['RNG']='Trueflight',['RDM']='Sanguine Blade',['BLU']='Sanguine Blade'}
 
@@ -377,6 +377,12 @@ data.equipment.relic_weapons = S{'Spharai','Mandau','Excalibur','Ragnarok','Gutt
 data.equipment.aeonic_weapons = S{'Dojikiri Yasutsuna','Chango','Trishula','Sequence','Aeneas','Lionheart',
 	'Godhands','Tri-Edge','Anguta','Heishi Shorinken','Tishtrya', 'Fail-Not','Fomalhaut'}
 	
+data.equipment.prime_weapons = S{'Varga Purnikawa','Mpu Gandring','Caliburnus','Helheim','Spalirisos','Laphria',
+	'Foenaria','Gae Buide','Dokoku','Kusanagi','Lorg Mor','Opashoro','Pinaka','Earp'}
+
+data.equipment.empyrean_weapons = S{'Verethragna','Twashtar','Almace','Caladbolg','Farsha','Ukonvasara',
+	'Redemption','Rhongomiant','Kannagi','Masamune','Gambanteinn','Hvergelmir','Gandiva','Armageddon'}
+	
 data.equipment.aftermath_weapons = S{'Conqueror','Glanzfaust','Yagrush','Laevateinn','Murgleis','Vajra','Burtgang','Liberator',
 	'Aymur','Carnwenhan','Gastraphetes','Kogarasumaru','Nagi','Ryunohige','Nirvana','Tizona','Death Penalty','Kenkonken',
 	'Terpsichore','Tupsimati','Idris','Epeolatry','Varga Purnikawa','Mpu Gandring','Caliburnus','Helheim','Spalirisos','Laphria',
@@ -454,7 +460,7 @@ disable_priority = T{
 }:reverse() --We reverse the list here so that the highest priority is at the top.
 
 data.equipment.cprings = L{"Endorsement Ring","Trizek Ring","Vocation Ring","Capacity Ring","Facility Ring"}
-data.equipment.xprings = L{"Echad Ring","Caliber Ring","Emperor Band","Empress Band","Resolution Ring"}
+data.equipment.xprings = L{"Echad Ring","Caliber Ring","Emperor Band","Empress Band","Resolution Ring","Novennial Ring", "Decennial Ring", "DuoDecennial Ring","UnDecennial Ring"}
 
 -------------------------------------------------------------------------------------------------------------------
 -- Tool Maps/Lists
@@ -737,7 +743,7 @@ abyssea_elemental_ws_proc_weapons_map = {
 	['wind'] =		{['ProcDagger']="Cyclone",['ProcGreatKatana']="Tachi: Jinpu"},
 	['ice'] =		{['ProcGreatSword']="Freezebite"},
 	['lightning'] =	{['ProcPolearm']="Raiden Thrust"},
-	['light'] =		{['ProcClub']="Seraph Strike",['ProcGreatKatana']="Tachi: Koki",['ProcSword']="Seraph Blade"},
+	['light'] =		{['ProcClub']="Seraph Strike",['ProcGreatKatana']="Tachi: Koki",['ProcSword']="Seraph Blade",['ProcStaff']="Sunburst"},
 	['darkness'] =	{['ProcScythe']="Shadow of Death",['ProcKatana']="Blade: Ei",['ProcDagger']="Energy Drain"},
 }
 -------------------------------------------------------------------------------------------------------------------
@@ -802,6 +808,7 @@ spell_stepdown = {
 	['Water Threnody II'] = 'Water Threnody',
 	['Light Threnody II'] = 'Light Threnody',
 	['Dark Threnody II'] = 'Dark Threnody',
+	['Tonko: Ni'] = 'Tonko: Ichi',
 }
 
 item_stepdown = {
@@ -849,6 +856,10 @@ for _, rline in pairs(gearswap.res.spells) do
 		end
 	end
 end
+
+buff_table_by_name = gearswap.res.buffs:rekey('en')
+
+disable_list = {'terror','sleep','Lullaby','stun','Animated','Charm','petrification'}
 
 data.status_map = T{
 	{buff='doom',spell='Cursna'},

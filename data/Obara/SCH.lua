@@ -385,9 +385,9 @@ function handle_job_elemental(command, target)
 		if target == player.id and buffactive[data.elements.storm_of[state.ElementalMode.value]] and not state.Buff.Klimaform and spell_recasts[287] < spell_latency then
 			windower.chat.input('/ma "Klimaform" <me>')
 		elseif player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 99 then
-			windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..' II"')
+			windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..' II" '..target)
 		else
-			windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..'"')
+			windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..'" '.. target)
 		end
 		return true
 	elseif command:endswith('nuke') then
@@ -395,9 +395,9 @@ function handle_job_elemental(command, target)
 		
 		if state.ElementalMode.value == 'Light' then
 			if spell_recasts[29] < spell_latency and actual_cost('Banish II') < player.mp then
-				windower.chat.input('/ma "Banish II" '..target..'')
+				windower.chat.input('/ma "Banish II" '..target)
 			elseif spell_recasts[28] < spell_latency and actual_cost('Banish') < player.mp then
-				windower.chat.input('/ma "Banish" '..target..'')
+				windower.chat.input('/ma "Banish" '..target)
 			else
 				add_to_chat(123,'Abort: Banishes on cooldown or not enough MP.')
 			end
@@ -412,7 +412,7 @@ function handle_job_elemental(command, target)
 				local spell_name = data.elements.nuke_of[state.ElementalMode.value]..tiers[k]
 				local spell_id = get_spell_id_by_name(spell_name)
 				if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
-					windower.chat.input('/ma "'..spell_name..'" '..target..'')
+					windower.chat.input('/ma "'..spell_name..'" '..target)
 					return true
 				end
 			end
@@ -421,9 +421,9 @@ function handle_job_elemental(command, target)
 		return true
 	elseif command == 'helix' then
 		if player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 1199 then
-			windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix II" '..target..'')
+			windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix II" '..target)
 		else
-			windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target..'')
+			windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target)
 		end
 		return true
 	elseif command:contains('skillchain') then
@@ -568,7 +568,7 @@ function handle_job_elemental(command, target)
 			else
 				if not state.Buff['Immanence'] then windower.chat.input('/ja "Immanence" <me>') end
 				windower.chat.input:schedule(1.3,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..state.ElementalMode.value..' CLOSE!')
-				windower.chat.input:schedule(1.3,'/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target..'')
+				windower.chat.input:schedule(1.3,'/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target)
 			end
 		end
 		return true

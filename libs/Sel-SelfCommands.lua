@@ -127,15 +127,17 @@ function handle_set(cmdParams)
 
 	if state_var then
 		local oldVal = state_var.value
-		state_var:set(cmdParams[2])
+		local state_name = {table.remove(cmdParams, 1)}
+		local set_value = table.concat(cmdParams, ' ')
+		state_var:set(set_value)
 		local newVal = state_var.value
 
 		if toggleset and newVal == oldVal and newVal ~= 'Single' then
-			handle_reset(cmdParams)
+			handle_reset(state_name)
 			return
 		end
 
-		local descrip = state_var.description or cmdParams[1]
+		local descrip = state_var.description or set_value
 		if state_change then
 			state_change(descrip, newVal, oldVal)
 		end
@@ -158,6 +160,9 @@ function handle_smartstun(cmdParams)
 	if cmdParams[1] then
 		if cmdParams[1] == '<me>' or cmdParams[1] == 'me' then
 			target = player.id
+		elseif cmdParams[1] == '<bt>' or cmdParams[1] == 'bt' then
+			local bt = windower.ffxi.get_mob_by_target('bt') or false
+			target = bt and bt.id or false
 		elseif cmdParams[1] == '<t>' or cmdParams[1] == 't' then
 			if player.target.type ~= 'NONE' and player.target.id then
 				target = player.target.id
@@ -424,12 +429,12 @@ function handle_update(cmdParams)
 		handle_equipping_gear(player.status)
 	end
 
+	update_job_states()
+	update_combat_form()
+	
 	if cmdParams[1] == 'user' then
 		display_current_state()
 	end
-
-	update_job_states()
-	update_combat_form()
 end
 
 
@@ -503,6 +508,9 @@ function handle_weapons(cmdParams)
 		if not data.jobs.dual_wield_jobs:contains(player.main_job) and can_dual_wield and weapon_sets['Dual'] then
 			state.WeaponSets:set('Dual')
 			state.Weapons:options(unpack(weapon_sets[state.WeaponSets.value]))
+			if sets.weapons[default_dual_weapons] then
+				state.Weapons:set(default_dual_weapons)
+			end
 		elseif weapon_sets['Default'] then
 			state.WeaponSets:set('Default')
 			state.Weapons:options(unpack(weapon_sets[state.WeaponSets.value]))
@@ -640,6 +648,9 @@ function handle_elemental(cmdParams)
 	if cmdParams[1] then
 		if cmdParams[1] == '<me>' or cmdParams[1] == 'me' then
 			target = player.id
+		elseif cmdParams[1] == '<bt>' or cmdParams[1] == 'bt' then
+			local bt = windower.ffxi.get_mob_by_target('bt') or false
+			target = bt and bt.id or false
 		elseif cmdParams[1] == '<t>' or cmdParams[1] == 't' then
 			if player.target.type ~= 'NONE' and player.target.id then
 				target = player.target.id
@@ -1033,6 +1044,7 @@ function handle_enmity(cmdParams)
 		if not cmdParams:contains('short') then
 			for i, ability in ipairs(data.abilities.enmity.long_cooldown) do
 				local ability_id = get_ability_id_by_name(ability)
+				local ability_recast_id = res.job_abilities[ability_id].recast_id
 				local targets_enemy = res.job_abilities[ability_id].targets:contains('Enemy')
 
 				if silent_can_ability(ability) and abil_recasts[ability_recast_id] < latency and not ((cmdParams:contains('aoe') and targets_enemy) or (cmdParams:contains('target') and not targets_enemy)) then

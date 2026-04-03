@@ -67,6 +67,7 @@ function job_setup()
 	-- Whether to automatically generate bullets.
 	state.AutoAmmoMode = M(true,'Auto Ammo Mode')
 	state.UseDefaultAmmo = M(true,'Use Default Ammo')
+	state.TrueShotMode = M(true,'True Shot Mode')
 	state.Buff['Triple Shot'] = buffactive['Triple Shot'] or false
 
 	-- Whether to use Luzaf's Ring
@@ -77,6 +78,7 @@ function job_setup()
 	rangedautows = 'Last Stand'
 	autofood = 'Sublime Sushi'
 	ammostock = 98
+	displayroll = true
 
 	define_roll_values()
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","LuzafRing","AutoWSMode","RngHelper","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","ElementalMode","IdleMode","Passive","RuneElement","CompensatorMode","RollMode","TreasureMode",})
@@ -138,7 +140,9 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.buff['Triple Shot'])
 			end
 		end
-
+		if state.TrueShotMode.value and sets.TrueShot and check_sweetspot(spell) then
+			equip(sets.TrueShot)
+		end
 		if state.Buff.Barrage and sets.buff.Barrage then
 			equip(sets.buff.Barrage)
 		end
@@ -310,6 +314,7 @@ function define_roll_values()
 end
 
 function display_roll_info(spell)
+	if not displayroll then return end
 	rollinfo = rolls[spell.english]
 	local rollsize = (state.LuzafRing.value and 'Large') or 'Small'
 
@@ -389,4 +394,15 @@ end
 function job_tick()
 	if check_ammo() then return true end
 	return false
+end
+
+function check_sweetspot(spell)
+	local modified_sweetspot_min = player.model_size + spell.target.model_size + 3.0209
+	local modified_sweetspot_max = player.model_size + spell.target.model_size + 4.3189
+
+	if (spell.target.distance >= modified_sweetspot_min) and (spell.target.distance <= modified_sweetspot_max) then
+		return true
+	else
+		return false
+	end
 end

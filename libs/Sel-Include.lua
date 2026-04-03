@@ -99,36 +99,36 @@ function init_include()
 	-- General melee offense/defense modes, allowing for hybrid set builds, as well as idle/resting/weaponskill.
 	-- This just defines the vars and sets the descriptions.  List modes with no values automatically
 	-- get assigned a 'Normal' default value.
-	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto'}
-	state.AutoRuneMode 		  = M{['description'] = 'Auto Rune Mode','Off','Runes','Full'}
-	state.AutoSambaMode 	  = M{['description'] = 'Auto Samba Mode', 'Off', 'Haste Samba', 'Aspir Samba', 'Drain Samba II'}
-	state.CastingMode         = M{['description'] = 'Casting Mode'}
-	state.CombatForm          = M{['description'] = 'Combat Form', ['string']=''}
-	state.CombatWeapon        = M{['description'] = 'Combat Weapon', ['string']=''}
-	state.CraftQuality  	  = M{['description'] = 'Crafting Quality','Normal','HQ','NQ'}
-	state.CraftingMode		  = M{['description'] = 'Crafting Mode','None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Gathering','Goldsmithing','Leathercraft','Smithing','Woodworking'}
-	state.DefenseMode         = M{['description'] = 'Defense Mode', 'None', 'Physical', 'Magical', 'Resist'}
-	state.ElementalMode 	  = M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
-	state.ExtraDefenseMode 	  = M{['description'] = 'Extra Defense Mode','None'}
-	state.EquipStop           = M{['description'] = 'Stop Equipping Gear', 'off', 'precast', 'midcast', 'pet_midcast'}
-	state.HybridMode          = M{['description'] = 'Hybrid Mode'}
-	state.IdleMode            = M{['description'] = 'Idle Mode'}
-	state.MagicBurstMode 	  = M{['description'] = 'Magic Burst Mode', 'Off', 'Single', 'Lock'}
-	state.RecoverMode 		  = M{['description'] = 'Recover Mode', '35%', '60%', 'Always', 'Never'}
-	state.MagicalDefenseMode  = M{['description'] = 'Magical Defense Mode', 'MDT'}
-	state.OffenseMode         = M{['description'] = 'Offense Mode'}
-	state.PCTargetMode        = M{['description'] = 'PC Target Mode', 'default', 'stpt', 'stal', 'stpc'}
-	state.Passive   		  = M{['description'] = 'Passive Mode','None'}
-	state.PhysicalDefenseMode = M{['description'] = 'Physical Defense Mode', 'PDT'}
-	state.RangedMode          = M{['description'] = 'Ranged Mode'}
-	state.ResistDefenseMode   = M{['description'] = 'Resistance Defense Mode', 'MEVA'}
-	state.RestingMode         = M{['description'] = 'Resting Mode'}
-	state.RuneElement 		  = M{['description'] = 'Rune Element','Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
-	state.SkillchainMode 	  = M{['description'] = 'Skillchain Mode', 'Off', 'Single', 'Lock'}
-	state.Weapons		  	  = M{['description'] = 'Weapons','None','Weapons'}
-	state.RegenMode		  	  = M{['description'] = 'Regen','None','Duration','Potency'}
-	state.WeaponSets	  	  = M{['description'] = 'Weapon Sets','None'}
-	state.WeaponskillMode     = M{['description'] = 'Weaponskill Mode','Match'}
+	state.AutoBuffMode			= M{['description'] = 'Auto Buff Mode', 'Off','Auto'}
+	state.AutoRuneMode			= M{['description'] = 'Auto Rune Mode', 'Off','Runes','Full'}
+	state.AutoSambaMode			= M{['description'] = 'Auto Samba Mode', 'Off','Haste Samba','Aspir Samba','Drain Samba II'}
+	state.CastingMode			= M{['description'] = 'Casting Mode'}
+	state.CombatForm			= M{['description'] = 'Combat Form', ['string']=''}
+	state.CombatWeapon			= M{['description'] = 'Combat Weapon', ['string']=''}
+	state.CraftQuality			= M{['description'] = 'Crafting Quality', 'Normal','HQ','NQ'}
+	state.CraftingMode			= M{['description'] = 'Crafting Mode', 'None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Gathering','Goldsmithing','Leathercraft','Smithing','Synergy','Woodworking'}
+	state.DefenseMode			= M{['description'] = 'Defense Mode', 'None','Physical','Magical','Resist'}
+	state.ElementalMode			= M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
+	state.ExtraDefenseMode		= M{['description'] = 'Extra Defense Mode', 'None'}
+	state.EquipStop				= M{['description'] = 'Stop Equipping Gear', 'off','precast', 'midcast', 'pet_midcast'}
+	state.HybridMode			= M{['description'] = 'Hybrid Mode'}
+	state.IdleMode				= M{['description'] = 'Idle Mode'}
+	state.MagicBurstMode		= M{['description'] = 'Magic Burst Mode', 'Off','Single','Lock'}
+	state.RecoverMode			= M{['description'] = 'Recover Mode', '35%','60%','Always','Never'}
+	state.MagicalDefenseMode	= M{['description'] = 'Magical Defense Mode', 'MDT'}
+	state.OffenseMode			= M{['description'] = 'Offense Mode'}
+	state.PCTargetMode			= M{['description'] = 'PC Target Mode', 'default','stpt','stal','stpc'}
+	state.Passive				= M{['description'] = 'Passive Mode', 'None'}
+	state.PhysicalDefenseMode	= M{['description'] = 'Physical Defense Mode', 'PDT'}
+	state.RangedMode			= M{['description'] = 'Ranged Mode'}
+	state.ResistDefenseMode		= M{['description'] = 'Resistance Defense Mode', 'MEVA'}
+	state.RestingMode			= M{['description'] = 'Resting Mode'}
+	state.RuneElement			= M{['description'] = 'Rune Element', 'Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
+	state.SkillchainMode		= M{['description'] = 'Skillchain Mode', 'Off', 'Single', 'Lock'}
+	state.Weapons				= M{['description'] = 'Weapons', 'None','Weapons'}
+	state.RegenMode				= M{['description'] = 'Regen Mode', 'None','Duration','Potency'}
+	state.WeaponSets			= M{['description'] = 'Weapon Sets', 'None'}
+	state.WeaponskillMode		= M{['description'] = 'Weaponskill Mode', 'Match'}
 	state.MainRoll		  	  = M{['description'] = 'Main Roll', 'Chaos', 'Samurai', 'Tactician', 'Hunter','Monk', 'Wizard', 'Naturalist', 'Evoker', 'Miser'}
 	state.SecRoll		  	  = M{['description'] = 'Sec Roll', 'Samurai', 'Tactician', 'Hunter', 'Wizard', 'Warlock', 'Naturalist', 'Chaos', 'Evoker', 'Miser'}
 	state.BarElement 		  = M{['description']= 'BarElement', 'Barfira', 'Barblizzara', 'Baraera', 'Barstonra', 'Barthundra', 'Barwatera'}
@@ -140,45 +140,46 @@ function init_include()
     state.songd				  = M{['description']= 'Song D', 'MinuetIV', 'MinuetIII', 'sword', 'blade', 'MinneIV','MinneV','Advancing','Victory', 'Honor', 'MinuetV','BalladIII','BalladII'}
     state.songe				  = M{['description']= 'Song E', 'MinuetIII', 'sword', 'blade', 'MinneIV','MinneV','Advancing','Victory', 'Honor', 'MinuetV', 'MinuetIV','BalladIII','BalladII'}
 	state.CurrentPlaylist     = M{['description']='Current Playlist'}
+	state.AspisMode				= M{['description'] = 'Aspis Mode', '250','500','1000','Always','Never'}
 	
-	state.AdjustTargets	  	  = M(true, 'Automatically Adjust Targets')
-	state.AutoAcceptRaiseMode = M(false, 'Auto Accept Raise Mode')
-	state.AutoArts	 		  = M(false, 'AutoArts Mode')
-	state.AutoCleanupMode  	  = M(false, 'Auto Cleanup Mode')
-	state.AutoContradanceMode = M(true, 'Auto Contradance Mode')
-	state.AutoFoodMode		  = M(false, 'Auto Food Mode')
-	state.AutoHolyWaterMode   = M(true, 'Auto Holy Water Mode')
-	state.AutoJumpMode 		  = M(false, 'Auto Jump Mode')
-	state.AutoLockstyle	 	  = M(false, 'AutoLockstyle Mode')
-	state.AutoNukeMode 		  = M(false, 'Auto Nuke Mode')
-	state.AutoRemoveDoomMode  = M(true, 'Auto Remove Doom Mode')
-	state.AutoShadowMode 	  = M(false, 'Auto Shadow Mode')
-	state.AutoSubMode 		  = M(false, 'Auto Sublimation Mode')
-	state.AutoSuperJumpMode   = M(false, 'Auto SuperJump Mode')
-	state.AutoTankMode 		  = M(false, 'Auto Tank Mode')
-	state.AutoTrustMode 	  = M(false, 'Auto Trust Mode')
-	state.AutoWSMode		  = M(false, 'Auto Weaponskill Mode')
-	state.AutoWSRestore		  = M(true, 'Auto Weaponskill Restore Mode')
-	state.CancelStoneskin	  = M(true, 'Auto Cancel Stoneskin')
-	state.Capacity 			  = M(false, 'Capacity Mode')
-	state.DisplayMode  	  	  = M(true, 'Display Mode')
-	state.ElementalWheel 	  = M(false, 'Elemental Wheel')
-	state.HoverShot		 	  = M(true, 'HoverShot')
-	state.IdleStep			  = M(true, 'Idle Step Mode')
-	state.Kiting              = M(false, 'Kiting')
-	state.MaintainAftermath	  = M(true, 'Maintain Aftermath')
-	state.MiniQueue		 	  = M(true, 'MiniQueue')
-	state.NotifyBuffs		  = M(false, 'Notify Buffs')
-	state.ReEquip 			  = M(false, 'ReEquip Mode')
-	state.RefineWaltz		  = M(true, 'RefineWaltz')
-	state.RngHelper		 	  = M(false, 'RngHelper')
-	state.RngHelperQuickDraw  = M(false, 'RngHelperQuickDraw')
-	state.SelectNPCTargets    = M(false, 'Select NPC Targets')
-	state.SelfWarp2Block 	  = M(true, 'Block Warp2 on Self')
-	state.SkipProcWeapons 	  = M(false, 'Skip Proc Weapons')
-	state.UnlockWeapons		  = M(false, 'Unlock Weapons')
-	state.UseCustomTimers 	  = M(true, 'Use Custom Timers')
-	state.WakeUpWeapons 	  =	M(false, 'Wake Up Weapons')
+	state.AdjustTargets			= M(true, 'Automatically Adjust Targets')
+	state.AutoAcceptRaiseMode	= M(false, 'Auto Accept Raise Mode')
+	state.AutoArts				= M(false, 'AutoArts Mode')
+	state.AutoCleanupMode		= M(false, 'Auto Cleanup Mode')
+	state.AutoContradanceMode	= M(true, 'Auto Contradance Mode')
+	state.AutoFoodMode			= M(false, 'Auto Food Mode')
+	state.AutoHolyWaterMode		= M(true, 'Auto Holy Water Mode')
+	state.AutoJumpMode			= M(false, 'Auto Jump Mode')
+	state.AutoLockstyle			= M(false, 'AutoLockstyle Mode')
+	state.AutoNukeMode			= M(false, 'Auto Nuke Mode')
+	state.AutoRemoveDoomMode	= M(true, 'Auto Remove Doom Mode')
+	state.AutoShadowMode		= M(false, 'Auto Shadow Mode')
+	state.AutoSubMode			= M(false, 'Auto Sublimation Mode')
+	state.AutoSuperJumpMode		= M(false, 'Auto SuperJump Mode')
+	state.AutoTankMode			= M(false, 'Auto Tank Mode')
+	state.AutoTrustMode			= M(false, 'Auto Trust Mode')
+	state.AutoWSMode			= M(false, 'Auto Weaponskill Mode')
+	state.AutoWSRestore			= M(true, 'Auto Weaponskill Restore Mode')
+	state.CancelStoneskin		= M(true, 'Auto Cancel Stoneskin')
+	state.Capacity				= M(false, 'Capacity Mode')
+	state.DisplayMode			= M(true, 'Display Mode')
+	state.ElementalWheel		= M(false, 'Elemental Wheel')
+	state.HoverShot				= M(true, 'HoverShot')
+	state.IdleStep				= M(true, 'Idle Step Mode')
+	state.Kiting				= M(false, 'Kiting')
+	state.MaintainAftermath		= M(true, 'Maintain Aftermath')
+	state.MiniQueue				= M(true, 'MiniQueue')
+	state.NotifyBuffs			= M(false, 'Notify Buffs')
+	state.ReEquip				= M(false, 'ReEquip Mode')
+	state.RefineWaltz			= M(true, 'RefineWaltz')
+	state.RngHelper				= M(false, 'RngHelper')
+	state.RngHelperQuickDraw	= M(false, 'RngHelperQuickDraw')
+	state.SelectNPCTargets		= M(false, 'Select NPC Targets')
+	state.SelfWarp2Block		= M(true, 'Block Warp2 on Self')
+	state.SkipProcWeapons		= M(false, 'Skip Proc Weapons')
+	state.UnlockWeapons			= M(false, 'Unlock Weapons')
+	state.UseCustomTimers		= M(true, 'Use Custom Timers')
+	state.WakeUpWeapons			= M(false, 'Wake Up Weapons')
 	state.UseSecRoll 		  = M(false, 'Use Secondary Roll')
 	
 
@@ -193,11 +194,10 @@ function init_include()
 	state.Buff['Accession'] 		= buffactive['Accession'] 		or false
 	state.Buff['Manifestation'] 	= buffactive['Manifestation'] 	or false
 	state.Buff['Warcry'] 			= buffactive['Warcry'] 			or false
-	state.Buff['SJ Restriction'] 	= buffactive['SJ Restriction'] 	or false
 	state.Buff['Invisible'] 		= buffactive['Invisible'] 		or false
 	state.Buff['Sneak'] 			= buffactive['Sneak'] 			or false
 	state.Buff['Unlimited Shot'] 	= buffactive['Unlimited Shot']	or false
-	
+
 	-- Classes describe a 'type' of action.  They are similar to state, but
 	-- may have any free-form value, or describe an entire table of mapped values.
 	classes = {}
@@ -239,6 +239,7 @@ function init_include()
 	end
 	
 	-- Define and default variables for global functions that can be overwritten.
+	display = {}
 	autonuke = 'Fire'
 	autows = ''
 	autows_list = {}
@@ -300,6 +301,7 @@ function init_include()
 	sets.precast.RA = {}
 	sets.precast.Item = {}
 	sets.midcast = {}
+	sets.midcast.Item = {}
 	sets.midcast.RA = {}
 	sets.midcast.Pet = {}
 	sets.idle = {}
@@ -365,18 +367,18 @@ function init_include()
 	--Certain Checks
 	global_on_load()
 	
-	-- General var initialization and setup.
-	if job_setup then
-		job_setup()
-	end
-
 	-- User-specific var initialization and setup.
 	if user_setup then
 		user_setup()
 	end
-	
+
 	if character_setup then
 		character_setup()
+	end
+	
+	-- General var initialization and setup.
+	if job_setup then
+		job_setup()
 	end
 	
 	-- Job-User-specific var initialization and setup.
@@ -391,6 +393,8 @@ function init_include()
 	if extra_user_setup then
 		extra_user_setup()
 	end
+	
+	update_melee_groups()
 
 	if not selindrile_warned then
 		naughty_list = {'lua ','gearswap',' gs ','file','windower','plugin','addon','program','hack','bot ','bots ','botting','easyfarm'}
@@ -505,14 +509,12 @@ end
 
 -- Function to perform actions on new targets.
 function target_change(new)
-
 	if state.RngHelper.value then
 		send_command('gs rh clear')
 	end
 
-	local target = windower.ffxi.get_mob_by_target('t')
-	local sub= windower.ffxi.get_mob_by_target('st')
-	if (target ~= nil) and (sub == nil) then
+	local target = windower.ffxi.get_mob_by_index(new)
+	if target then
 		if state.AutoCleanupMode.value and math.sqrt(target.distance) < 7 then
 			if target.name == "Runje Desaali" and bayld_items then 
 				for i in pairs(bayld_items) do
@@ -791,11 +793,11 @@ function handle_actions(spell, action)
 			_G['general_post_'..action](spell, spellMap, eventArgs)
 		end
 
-	   -- Job-specific post-handling of this action
+		-- Job-specific post-handling of this action
 		if not eventArgs.cancel and _G['job_post_'..action] then
 			_G['job_post_'..action](spell, spellMap, eventArgs)
 		end
-		
+
 		if not eventArgs.cancel and _G['user_job_post_'..action] then
 			_G['user_job_post_'..action](spell, spellMap, eventArgs)
 		end
@@ -816,8 +818,11 @@ function handle_actions(spell, action)
 	end
 
 	equip(internal_disable)
-
+	
 	if action == 'precast' or action == 'midcast' then
+		if (spell.name == 'Holy Water' or spell.name == 'Hallowed Water') and sets[action].Item[spell.name] then
+			equip(sets[action].Item[spell.name])
+		end
 		check_rare_ammo(spell, spellMap, eventArgs)
 	end
 end
@@ -827,6 +832,8 @@ end
 --------------------------------------
 
 function filtered_action(spell, eventArgs)
+	if spell.action_type == 'Item' and world.area == "Mog Garden" then return end
+
 	local eventArgs = {cancel = false}
 
 	-- Check users action filtering
@@ -859,6 +866,7 @@ function filtered_action(spell, eventArgs)
 		extra_default_filtered_action(spell, eventArgs)
 	end
 
+	cancel_spell()
 end
 
 function pretarget(spell)
@@ -896,7 +904,9 @@ end
 --------------------------------------
 
 function default_filtered_action(spell, eventArgs)
-	if spell.english == 'Dispelga' then
+	if spell.type == 'WeaponSkill' then
+	elseif spell.type == 'JobAbility' then
+	elseif spell.english == 'Dispelga' then
 		if state.Weapons.value ~= 'None' and not state.UnlockWeapons.value and player.equipment.main ~= 'Daybreak' then
 			windower.add_to_chat(123,"You can't cast Dispelga, your weapons are locked without Daybreak equipped.")
 		end
@@ -905,48 +915,42 @@ function default_filtered_action(spell, eventArgs)
 		useItemName = 'Warp Ring'
 		useItemSlot = 'ring2'
 		add_to_chat(217,"You can't cast warp, attempting to use Warp Ring instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Retrace' then
 		useItem = true
 		useItemName = 'Instant Retrace'
 		useItemSlot = 'item'
 		add_to_chat(217,"You can't cast Retrace, attempting to use a Retrace Scroll instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Teleport-Holla' then
 		useItem = true
 		useItemName = 'Dim. Ring (Holla)'
 		useItemSlot = 'ring2'
 		add_to_chat(217,"You can't cast Teleport-Holla, attempting to use Dimensional Ring instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Reraise' then
 		useItem = true
 		useItemName = 'Dusty Reraise'
 		useItemSlot = 'item'
 		add_to_chat(217,"You can't cast Reraise, attempting to use Instant Reraise instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Teleport-Dem' then
 		useItem = true
 		useItemName = 'Dim. Ring (Dem)'
 		useItemSlot = 'ring2'
 		add_to_chat(217,"You can't cast Teleport-Dem, attempting to use Dimensional Ring instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Teleport-Mea' then
 		useItem = true
 		useItemName = 'Dim. Ring (Mea)'
 		useItemSlot = 'ring2'
 		add_to_chat(217,"You can't cast Teleport-Mea, attempting to use Dimensional Ring instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Invisible' then
-		if player.main_job == 'DNC' or player.sub_job == 'DNC' then
+		if (player.main_job == 'DNC' or player.sub_job == 'DNC') and windower.ffxi.get_ability_recasts()[218] < 3 then
 			windower.chat.input('/ja "Spectral Jig" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Spectral Jig instead.")
-		elseif player.main_job == 'NIN' or player.sub_job == 'NIN' then
+		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and (windower.ffxi.get_spell_recasts()[354] < spell_latency or windower.ffxi.get_spell_recasts()[353] < spell_latency) then
 			windower.chat.input('/ma "Tonko: Ni" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Tonko: Ni instead.")
 		elseif item_available('Prism Powder') then
@@ -955,33 +959,31 @@ function default_filtered_action(spell, eventArgs)
 		elseif item_available('Rainbow Powder') then
 			windower.chat.input('/item "Rainbow Powder" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Prism Powder instead.")
+		else
+			add_to_chat(123,"All attempts to use [Invisible] failed.")
 		end
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Sneak' then
-		if player.main_job == 'DNC' or player.sub_job == 'DNC' then
+		if (player.main_job == 'DNC' or player.sub_job == 'DNC') and windower.ffxi.get_ability_recasts()[218] < 3 then
 			windower.chat.input('/ja "Spectral Jig" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Spectral Jig instead.")
-		elseif player.main_job == 'NIN' or player.sub_job == 'NIN' then
+		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and windower.ffxi.get_spell_recasts()[318] < spell_latency then
 			windower.chat.input('/ma "Monomi: Ichi" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Monomi: Ichi instead.")
 		elseif item_available('Silent Oil') then
 			windower.chat.input('/item "Silent Oil" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Silent Oil instead.")
+		else
+			add_to_chat(123,"All attempts to use [Sneak] failed.")
 		end
-		cancel_spell()
 		eventArgs.cancel = true
 	end
 end
 
 function extra_default_filtered_action(spell, eventArgs)
-	if spell.action_type == 'Item' and world.area == "Mog Garden" then
-		return
-	elseif spell.action_type == 'Magic' and not silent_can_cast(spell.name) and stepdown(spell, eventArgs) then
+	if spell.action_type == 'Magic' and not silent_can_cast(spell.name) and stepdown(spell, eventArgs) then
 	elseif not can_use(spell) then
 	end
-	cancel_spell()
-	eventArgs.cancel = true
 end
 
 function default_pretarget(spell, spellMap, eventArgs)
@@ -998,8 +1000,6 @@ function default_precast(spell, spellMap, eventArgs)
 	delayed_prefix = ''
 	delayed_cast = ''
 	delayed_target = ''
-	cancel_conflicting_buffs(spell, spellMap, eventArgs)
-	equip(get_precast_set(spell, spellMap))
 	
 	local delay = 0
 	if spell.action_type == 'Magic' then
@@ -1008,11 +1008,18 @@ function default_precast(spell, spellMap, eventArgs)
 		delay = 2.75
 	elseif spell.action_type == 'Ability' then
 		delay = .85
+		
+		if item_equippable("Diamond Aspis") and res.job_abilities[spell.id].status and state.AspisMode.value ~= 'Never' and (state.AspisMode.value == 'Always' or tonumber(state.AspisMode.value) > player.tp) then
+			internal_enable_set("Weapons")
+		end
 	elseif spell.action_type == 'Item' then
 		delay = 1.55
 	elseif spell.action_type == 'Ranged Attack' then
 		delay = .9
 	end
+	
+	cancel_conflicting_buffs(spell, spellMap, eventArgs)
+	equip(get_precast_set(spell, spellMap))
 
 	add_next_cast_delay(delay)
 end
@@ -1111,6 +1118,18 @@ function general_post_midcast(spell, spellMap, eventArgs)
 						elseif sets.MagicBurst then
 							equip(sets.MagicBurst)
 						end
+						
+						if can_dual_wield then
+							if spellMap == 'Helix' and state.CastingMode.value:contains('Resistant') and sets.ResistantHelixBurst and sets.ResistantHelixBurst.DW then
+								equip(sets.ResistantHelixBurst.DW)
+							elseif state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst and sets.ResistantMagicBurst.DW then
+								equip(sets.ResistantMagicBurst.DW)
+							elseif spellMap == 'Helix' and sets.HelixBurst and sets.HelixBurst.DW then
+								equip(sets.HelixBurst.DW)
+							elseif sets.MagicBurst and sets.MagicBurst.DW then
+								equip(sets.MagicBurst.DW)
+							end
+						end
 					end
 
 					set_elemental_obi_cape_ring(spell, spellMap)
@@ -1208,11 +1227,7 @@ function default_post_midcast(spell, spellMap, eventArgs)
 			eventArgs.handled = true
 		end
 	end
-	
-	if buffactive.doom then
-		equip(sets.buff.Doom)
-	end
-	
+
 	if spell.action_type == 'Magic' then
 		check_item_dependant_spells(spell, spellMap)
 	end
@@ -1221,10 +1236,6 @@ end
 function default_post_pet_midcast(spell, spellMap, eventArgs)
 	if state.Capacity.value then
 		equip(sets.Capacity)
-	end
-
-	if buffactive.doom then
-		equip(sets.buff.Doom)
 	end
 end
 
@@ -1334,6 +1345,7 @@ function filter_precast(spell, spellMap, eventArgs)
 		if check_warps(spell, spellMap, eventArgs) then return end
 	elseif spell.action_type == 'Ability' or spell.type == 'WeaponSkill' then
 		if check_amnesia(spell, spellMap, eventArgs) then return end
+		if check_action_targets(spell, spellMap, eventArgs) then return end
 		if refine_waltz(spell, spellMap, eventArgs) then return end
 		if check_abilities(spell, spellMap, eventArgs) then return end
 	end
@@ -1750,6 +1762,21 @@ function get_melee_set(petStatus)
 	return meleeSet
 end
 
+function update_melee_groups()
+	classes.CustomMeleeGroups:clear()
+	
+	if job_update_melee_groups then
+		job_update_melee_groups()
+	end
+
+	if buffactive['Aftermath: Lv.3'] then
+		if data.equipment.mythic_weapons:contains(player.equipment.main) or ((sets.engaged[state.Weapons.value] or (sets.engaged[player.equipment.main] and state.CombatForm.value == player.equipment.main)) and not data.equipment.aeonic_weapons:contains(player.equipment.main)) then
+			classes.CustomMeleeGroups:append('AM')
+		end
+	elseif buffactive['Aftermath'] and (sets.engaged[state.Weapons.value] or (sets.engaged[player.equipment.main] and state.CombatForm.value == player.equipment.main)) then
+		classes.CustomMeleeGroups:append('AM')
+	end
+end
 
 -- Returns the appropriate resting set based on current state values.
 -- Set construction order:
@@ -2235,10 +2262,24 @@ function sub_job_change(newSubjob, oldSubjob)
 	if user_setup then
 		user_setup()
 	end
+
+	if character_setup then
+		character_setup()
+	end
 	
+	-- General var initialization and setup.
+	if job_setup then
+		job_setup()
+	end
+	
+	-- Job-User-specific var initialization and setup.
 	if user_job_setup then
 		user_job_setup()
-	end	
+	end
+	
+	if character_user_job_setup then
+		character_user_job_setup()
+	end
 	
 	if extra_user_setup then
 		extra_user_setup()
@@ -2509,15 +2550,17 @@ function buff_change(buff, gain)
 		end
 	end
 
+	if extra_user_buff_change then
+		extra_user_buff_change(buff, gain, eventArgs)
+	end
+
+	update_melee_groups()
+
 	if not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
 		handle_equipping_gear(player.status)
 	end
 	
 	notify_buffs(buff, gain)
-	
-	if extra_user_buff_change then
-		extra_user_buff_change(buff, gain, eventArgs)
-	end
 	
 	if state.DisplayMode.value then update_job_states()	end
 end

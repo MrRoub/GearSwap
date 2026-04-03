@@ -58,12 +58,12 @@ function job_setup()
 	state.Buff.Stymie = buffactive.Stymie or false
 	state.Buff['Elemental Seal'] = buffactive['Elemental Seal'] or false
 	state.Buff.Chainspell = buffactive.Chainspell or false
-	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
-	
-	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
+
+	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
 	
 	-- Whether to swap weapons for Temper/Phalanx under a certain tp threshhold even when weapons are locked.
-	state.BuffWeaponsMode = M{'Never','500','1000','Always'}
+	state.BuffWeaponsMode	= M{['description'] = 'Buff Weapons Mode','Never','500','1000','Always'}
+	state.MurgleisMode		= M{['description'] = 'Murgleis Mode','Always','Never','500','1000'}
 	
 	LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
 		'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
@@ -80,7 +80,6 @@ function job_setup()
 		end
 	end
 
-	update_melee_groups()
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoWSMode","AutoNukeMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","RecoverMode","ElementalMode","CastingMode","TreasureMode"})
 end
 
@@ -99,19 +98,19 @@ function job_filtered_action(spell, eventArgs)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Shining Blade" then
-				send_command('@input /ws "Shining Strike" '..spell.target.raw)
+				windower.chat.input('/ws "Shining Strike" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Flat Blade" then
-				send_command('@input /ws "Brainshaker" '..spell.target.raw)
+				windower.chat.input('/ws "Brainshaker" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Chant Du Cygne" then
-				send_command('@input /ws "True Strike" '..spell.target.raw)
+				windower.chat.input('/ws "True Strike" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Sanguine Blade" then
-				send_command('@input /ws "Starlight" '..spell.target.raw)
+				windower.chat.input('/ws "Starlight" <me>')
 				cancel_spell()
 				eventArgs.cancel = true
 			end
@@ -121,15 +120,15 @@ function job_filtered_action(spell, eventArgs)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Circle Blade" then
-				send_command('@input /ws "Aeolian Edge" '..spell.target.raw)
+				windower.chat.input('/ws "Aeolian Edge" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Chant Du Cygne" then
-				send_command('@input /ws "Evisceration" '..spell.target.raw)
+				windower.chat.input('/ws "Evisceration" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Sanguine Blade" then
-				send_command('@input /ws "Energy Drain" '..spell.target.raw)
+				windower.chat.input('/ws "Energy Drain" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			end		
@@ -140,13 +139,23 @@ end
 function job_pretarget(spell, spellMap, eventArgs)
 	if spell.english == 'Phalanx' and spell.target.type == 'PLAYER' then
 		windower.chat.input('/ma "Phalanx II" '..spell.target.raw)
-		cancel_spell()
+		eventArgs.cancel = true
+	end
+end
+
+function job_filter_precast(spell, spellMap, eventArgs)
+	if spell.english == 'Convert' and player.mp == 0 then
+		add_to_chat(123,'Abort: Convert will fail with 0 MP.')
 		eventArgs.cancel = true
 	end
 end
 
 function job_precast(spell, spellMap, eventArgs)
-	if spell.english:startswith('Temper') or spellMap == 'Enspell' or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
+	if spell.english == 'Convert' then
+		if item_equippable("Murgleis") and state.MurgleisMode.value ~= 'Never' and (state.MurgleisMode.value == 'Always' or tonumber(state.MurgleisMode.value) > player.tp) then
+			internal_enable_set("Weapons")
+		end
+	elseif spell.english:startswith('Temper') or spellMap == 'Enspell' or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
 		if state.BuffWeaponsMode.value ~= 'Never' and (state.BuffWeaponsMode.value == 'Always' or tonumber(state.BuffWeaponsMode.value) > player.tp) then
 			internal_enable_set("Weapons")
 		end
@@ -203,8 +212,18 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			if currentSet and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_equippable("Regal Gem") then
 				equip({ammo="Regal Gem"})
 			end
-			if spell.skill == 'Enfeebling Magic' and state.Buff.Saboteur then
-				equip(sets.buff.Saboteur)
+			if spell.skill == 'Enfeebling Magic' then
+				if state.Buff.Stymie then
+					if sets.midcast[spell.english] and sets.midcast[spell.english].Stymie then
+						equip(sets.midcast[spell.english].Stymie)
+					elseif sets.buff.Stymie then
+						equip(sets.buff.Stymie)
+					end
+				end
+
+				if state.Buff.Saboteur then
+					equip(sets.buff.Saboteur)
+				end
 			end
 		elseif spell.skill == 'Enhancing Magic' then
 			equip(sets.midcast['Enhancing Magic'])
@@ -260,20 +279,11 @@ function job_buff_change(buff, gain)
 			enspell = ''
 		end
 	end
-	update_melee_groups()
 end
 
 -------------------------------------------------------------------------------------------------------------------
 -- Job-specific hooks for non-casting events.
 -------------------------------------------------------------------------------------------------------------------
-
-function job_update(cmdParams, eventArgs)
-	update_melee_groups()
-end
-
-	-- Allow jobs to override this code
-function job_self_command(commandArgs, eventArgs)
-end
 
 -------------------------------------------------------------------------------------------------------------------
 -- User code that supplements standard library decisions.
@@ -448,7 +458,7 @@ function check_arts()
 			end
 		end
 
-		if player.sub_job == 'SCH' and not (state.Buff['SJ Restriction'] or arts_active()) and abil_recasts[228] < latency then	
+		if player.sub_job == 'SCH' and not (buffactive['SJ Restriction'] or arts_active()) and abil_recasts[228] < latency then	
 			windower.chat.input('/ja "Light Arts" <me>')	
 			add_tick_delay()
 			return true
@@ -459,9 +469,7 @@ function check_arts()
 	return false
 end
 
-function update_melee_groups()
-	classes.CustomMeleeGroups:clear()
-	
+function job_update_melee_groups()
 	if enspell ~= '' then
 		if enspell:endswith('II') then
 			classes.CustomMeleeGroups:append('Enspell2')
@@ -469,10 +477,6 @@ function update_melee_groups()
 			classes.CustomMeleeGroups:append('Enspell')
 		end
 	end
-	
-	if player.equipment.main and player.equipment.main == "Murgleis" and state.Buff['Aftermath: Lv.3'] then
-		classes.CustomMeleeGroups:append('AM')
-	end	
 end
 
 buff_spell_lists = {

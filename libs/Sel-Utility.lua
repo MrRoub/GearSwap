@@ -998,25 +998,16 @@ function item_owned(item)
 end
 
 function check_disable(spell, spellMap, eventArgs)
+	for i in pairs(disable_list) do
+		if buffactive[disable_list[i]] then
+			add_to_chat(123,'Abort: You are '..buff_table_by_name[disable_list[i]].enl..'.')
+			eventArgs.cancel = true
+			return true
+		end
+	end
 
 	if player.hp == 0 then
 		add_to_chat(123,'Abort: You are dead.')
-		eventArgs.cancel = true
-		return true
-	elseif buffactive.terror then
-		add_to_chat(123,'Abort: You are terrorized.')
-		eventArgs.cancel = true
-		return true
-	elseif buffactive.petrification then
-		add_to_chat(123,'Abort: You are petrified.')
-		eventArgs.cancel = true
-		return true
-	elseif buffactive.sleep or buffactive.Lullaby then
-		add_to_chat(123,'Abort: You are asleep.')
-		eventArgs.cancel = true
-		return true
-	elseif buffactive.stun then
-		add_to_chat(123,'Abort: You are stunned.')
 		eventArgs.cancel = true
 		return true
 	elseif not (player.status == 'Idle' or player.status == 'Engaged') then
@@ -1026,17 +1017,15 @@ function check_disable(spell, spellMap, eventArgs)
 	else
 		return false
 	end
-
 end
 
 function silent_check_disable()
-
-	if buffactive.terror or buffactive.petrification or buffactive.sleep or buffactive.Lullaby or buffactive.stun then
-		return true
-	else
-		return false
+	for i in pairs(disable_list) do
+		if buffactive[disable_list[i]] then
+			return true
+		end
 	end
-
+	return false
 end
 
 -- Checks doom, returns true if we're going to cancel and use an or cursna.
@@ -1085,6 +1074,12 @@ function just_acted(spell, spellMap, eventArgs)
 		cancel_spell()
 		eventArgs.cancel = true
 		return true
+	elseif spell and (moving and not state.Uninterruptible.value) and not state.RngHelper.value and state.MiniQueue.value and (spell.action_type == 'Magic' or spell.action_type == 'Item' or spell.action_type == 'Ranged Attack') then
+		cancel_spell()
+		eventArgs.cancel = true
+		delayed_prefix = spell.prefix or ''
+		delayed_cast = spell.english or ''
+		delayed_target = spell.target.id or ''
 	elseif os.clock() < next_cast then
 		if eventArgs and not state.RngHelper.value and state.MiniQueue.value and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
 			cancel_spell()
@@ -1339,6 +1334,23 @@ function check_spell_targets(spell, spellMap, eventArgs)
 	end
 end
 
+function check_action_targets(spell, spellMap, eventArgs)
+	if state.AdjustTargets.value and not spell.targets.Enemy and spell.target.type == 'MONSTER' then
+		cancel_spell()
+		eventArgs.cancel = true
+		
+		if spell.targets.Ally then
+			windower.chat.input('/ma "'..spell.name..'" <stal>')
+		elseif spell.targets.Party then
+			windower.chat.input('/ma "'..spell.name..'" <stpt>')
+		elseif spell.targets.Self then
+			windower.chat.input('/ma "'..spell.name..'" <me>')
+		end
+		return true
+	end
+	return false
+end
+
 function check_abilities(spell, spellMap, eventArgs)
 	if spell.action_type == 'Ability' then
 		if spell.english == 'Seigan' then
@@ -1347,8 +1359,9 @@ function check_abilities(spell, spellMap, eventArgs)
 				windower.chat.input('/ja "Third Eye" <me>')
 				return true
 			end
-		elseif spell.type == 'Step' then
-			if player.status == 'Idle' and windower.ffxi.get_ability_recasts()[220] < latency and spell.target and spell.target.valid_target and spell.target.spawn_type == 16 and spell.target.distance < (3.2 + spell.target.model_size) and player.tp > 99 then
+		elseif spell.type == 'Step' or spell.type == 'Effusion' then
+			if player.status == 'Idle' and windower.ffxi.get_ability_recasts()[spell.recast_id] < latency and spell.target and spell.target.valid_target and spell.target.spawn_type == 16 and spell.target.distance < (3.2 + spell.target.model_size) then
+				if spell.type == 'Step' and player.tp <= 99 then return false end
 				packets.inject(packets.new('outgoing', 0x1a, {
 					['Target'] = spell.target.id,
 					['Target Index'] = spell.target.index,
@@ -1356,7 +1369,7 @@ function check_abilities(spell, spellMap, eventArgs)
 				}))
 
 				if state.IdleStep.value then
-					send_command:schedule(1,'input /attack off')
+					windower.chat.input:schedule(1,'/attack off')
 				end
 				return true
 			end
@@ -2493,7 +2506,7 @@ function check_rune()
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 
 		if not buffactive[state.RuneElement.value] or buffactive[state.RuneElement.value] < 2 or (player.main_job == 'RUN' and buffactive[state.RuneElement.value] < 3) then
-			if abil_recasts[92] > 0 then return false end
+			if abil_recasts[10] > latency then return false end
 			windower.chat.input('/ja "'..state.RuneElement.value..'" <me>')
 			add_tick_delay()
 			return true
@@ -2595,17 +2608,23 @@ end
 function update_combat_form()
 	if sets.engaged[state.Weapons.value] then
 		state.CombatForm:set(state.Weapons.value)
+		return
 	elseif not player.equipment.main then
 		if sets.engaged.Unarmed then
 			state.CombatForm:set('Unarmed')
 		else
 			state.CombatForm:reset()
 		end
-	elseif sets.engaged.DW and state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual') or (state.Weapons.value == 'None' and can_dual_wield) then
+		return
+	end
+
+	local wielding = wielding()
+	
+	if sets.engaged.DW and (wielding == 'Dual Wielding' or (state.Weapons.value == 'None' and can_dual_wield)) then
 		state.CombatForm:set('DW')
 	elseif sets.engaged[player.equipment.main] then
 		state.CombatForm:set(player.equipment.main)
-	elseif sets.engaged.Fencer and wielding() == 'Fencing' then
+	elseif sets.engaged.Fencer and wielding == 'Fencing' then
 		state.CombatForm:set('Fencer')
 	else
 		state.CombatForm:reset()
@@ -2781,39 +2800,46 @@ function panic_swap_ammo()
 end
 
 -- Movement Handling
-lastlocation = {X=0,Y=0}
+lastlocation = {X=player.x, Z=player.z}
 moving = false
 wasmoving = false
+movedelay = os.clock() + .1
 
-windower.raw_register_event('outgoing chunk',function(id,data,modified,is_injected,is_blocked)
-	if id == 0x015 then
-		local currentlocation = {X=modified:sub(5,8), Y=modified:sub(13,16)}
-		moving = currentlocation.X ~= lastlocation.X or currentlocation.Y ~= lastlocation.Y
-		lastlocation = currentlocation
+windower.raw_register_event('prerender', function()
+	if not (os.clock() > movedelay) then return end
+	movedelay = os.clock() + .1
+	local player = windower.ffxi.get_mob_by_target('me') or lastlocation
+	local currentlocation = {X=player.x, Z=player.z}
+	moving = currentlocation.X ~= lastlocation.X or currentlocation.Z ~= lastlocation.Z
+	lastlocation = currentlocation
 
-		if moving then
-			if sets.Kiting and not wasmoving and not (player.status == 'Event' or midaction() or pet_midaction() or (os.clock() < (petWillAct + 2))) then
+	if moving then
+		if not wasmoving then
+			movedelay = os.clock() + 1
+			if not (player.status == 'Event' or midaction() or pet_midaction() or (os.clock() < (petWillAct + 2))) then
 				send_command('gs c update')
+			end
+			
+			if not state.Uninterruptible.value then
+				delayed_cast = ''
+				prepared_action = ''
+				if buffup~= '' then
+					buffup = ''
+					add_to_chat(123,'Buffup cancelled due to movement.')
+				end
 			end
 			if state.RngHelper.value and not buffactive['Hover Shot'] then
 				send_command('gs rh clear')
 			end
-			if buffup~= '' then
-				buffup = ''
-				add_to_chat(123,'Buffup cancelled due to movement.')
-			end
-
-			if not state.Uninterruptible.value then delayed_cast = '' end
-			prepared_action = ''
-		elseif wasmoving then
-			if not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
-				send_command('gs c update')
-			end
 		end
-
-		wasmoving = moving
-
+	elseif wasmoving then
+		movedelay = os.clock() + 1
+		if not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
+			send_command('gs c update')
+		end
 	end
+
+	wasmoving = moving
 end)
 
 -- Uninterruptible Handling
