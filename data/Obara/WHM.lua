@@ -60,6 +60,7 @@ function job_setup()
 	state.AutoCelerity = M(false, 'Auto Celerity Mode')
 	state.Gambanteinn = M(false, 'Gambanteinn Cursna Mode')
 	state.BlockLowDevotion = M(true, 'Block Low Devotion')
+	state.WakeUpWeapons = M(true, 'Wake Up Weapons')
 
 	autows = 'Mystic Boon'
 	autofood = 'Miso Ramen'

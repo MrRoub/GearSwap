@@ -439,29 +439,29 @@ function update_job_states()
 			end
 		elseif n == 'MainRoll' then
 			if (player.main_job == 'COR' or player.sub_job == 'COR') and state.MainRoll.value ~= "None" then
-				stateBox:append(string.format("%sMain Roll: %s%s    ", clr.w, clr.h, state.MainRoll.value))
+				stateBox:append(string.format("%sMain Roll: %s%s    ", display.colors.White, display.colors.Yellow, state.MainRoll.value))
 			end
 		elseif n == 'SecRoll' then
 			if (player.main_job == 'COR') and state.SecRoll.value ~= "None" then
-				stateBox:append(string.format("%sSec Roll: %s%s    ", clr.w, clr.h, state.SecRoll.value))
+				stateBox:append(string.format("%sSec Roll: %s%s    ", display.colors.White, display.colors.Yellow, state.SecRoll.value))
 			end
 		elseif n == 'UseSecRoll' then
 			if (player.main_job == 'COR') and state.UseSecRoll.value == true then
-				stateBox:append(string.format("%sRolling: %sSecondary    ", clr.w, clr.h))
+				stateBox:append(string.format("%sRolling: %sSecondary    ", display.colors.White, display.colors.Yellow))
 			elseif (player.main_job == 'COR') and state.UseSecRoll.value == false then
-					stateBox:append(string.format("%sRolling: %sPrimary    ", clr.w, clr.h))
+					stateBox:append(string.format("%sRolling: %sPrimary    ", display.colors.White, display.colors.Yellow))
 			end
 		elseif n == 'BarElement' then
 			if (player.main_job == 'WHM') and state.BarElement.value ~= "None" then
-				stateBox:append(string.format("%sBar Element: %s%s    ", clr.w, clr.h, state.BarElement.value))
+				stateBox:append(string.format("%sBar Element: %s%s    ", display.colors.White, display.colors.Yellow, state.BarElement.value))
 			end
 		elseif n == 'BarStatus' then
 			if (player.main_job == 'WHM') and state.BarStatus.value ~= "None" then
-				stateBox:append(string.format("%sBar Status: %s%s    ", clr.w, clr.h, state.BarStatus.value))
+				stateBox:append(string.format("%sBar Status: %s%s    ", display.colors.White, display.colors.Yellow, state.BarStatus.value))
 			end
 		elseif n == 'BoostSpell' then
 			if (player.main_job == 'WHM') and state.BoostSpell.value ~= "None" then
-				stateBox:append(string.format("%sBoost Spell: %s%s    ", clr.w, clr.h, state.BoostSpell.value))
+				stateBox:append(string.format("%sBoost Spell: %s%s    ", display.colors.White, display.colors.Yellow, state.BoostSpell.value))
 			end
 		else
 			stateBox:append(string.format("%s%s: ${%s}    ", display.colors.White, labels[n], n))

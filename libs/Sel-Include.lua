@@ -2514,6 +2514,9 @@ function buff_change(buff, gain)
 			if item_equippable("Lorg Mor") then
 				internal_disable_set({main="Lorg Mor"}, "Sleep")
 			end
+			if item_equippable("Caliburnus") then
+				internal_disable_set({shield="Caliburnus"}, "Sleep")
+			end
 			if item_equippable("Sacrifice Torque") and pet.isvalid then
 				internal_disable_set({neck="Sacrifice Torque"}, "Sleep")
 			elseif player.status == 'Engaged' then
