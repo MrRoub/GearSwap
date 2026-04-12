@@ -59,7 +59,7 @@ function job_setup()
 	state.Stance = M{['description']='Stance','Hasso','Seigan','None'}
 	state.AutoBondMode = M(true, 'Auto Bond Mode')
 	
-	autows = 'Stardiver'
+	autows = 'Diarmuid'
 	autofood = 'Soy Ramen'
 
 	Breath_HPP = 60

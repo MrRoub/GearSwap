@@ -385,9 +385,9 @@ function handle_job_elemental(command, target)
 		if target == player.id and buffactive[data.elements.storm_of[state.ElementalMode.value]] and not state.Buff.Klimaform and spell_recasts[287] < spell_latency then
 			windower.chat.input('/ma "Klimaform" <me>')
 		elseif player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 99 then
-			windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..' II" '..target)
+			windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..' II"')
 		else
-			windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..'" '.. target)
+			windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..'"')
 		end
 		return true
 	elseif command:endswith('nuke') then
@@ -395,9 +395,9 @@ function handle_job_elemental(command, target)
 		
 		if state.ElementalMode.value == 'Light' then
 			if spell_recasts[29] < spell_latency and actual_cost('Banish II') < player.mp then
-				windower.chat.input('/ma "Banish II" '..target)
+				windower.chat.input('/ma "Banish II" '..target..'')
 			elseif spell_recasts[28] < spell_latency and actual_cost('Banish') < player.mp then
-				windower.chat.input('/ma "Banish" '..target)
+				windower.chat.input('/ma "Banish" '..target..'')
 			else
 				add_to_chat(123,'Abort: Banishes on cooldown or not enough MP.')
 			end
@@ -412,7 +412,7 @@ function handle_job_elemental(command, target)
 				local spell_name = data.elements.nuke_of[state.ElementalMode.value]..tiers[k]
 				local spell_id = get_spell_id_by_name(spell_name)
 				if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
-					windower.chat.input('/ma "'..spell_name..'" '..target)
+					windower.chat.input('/ma "'..spell_name..'" '..target..'')
 					return true
 				end
 			end
@@ -421,9 +421,9 @@ function handle_job_elemental(command, target)
 		return true
 	elseif command == 'helix' then
 		if player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 1199 then
-			windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix II" '..target)
+			windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix II" '..target..'')
 		else
-			windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target)
+			windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target..'')
 		end
 		return true
 	elseif command:contains('skillchain') then
@@ -462,7 +462,7 @@ function handle_job_elemental(command, target)
 				windower.chat.input('/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' OPEN!')
 				windower.chat.input:schedule(1.3,'/ma "'..skillchain.first_spell..'" '..player.target.id)
 				windower.chat.input:schedule(5.6,'/ja "Immanence" <me>')
-				windower.chat.input:schedule(6.9,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' CLOSE!')
+				windower.chat.input:schedule(6.9,'/p burst '..skillchain.skillchain..'')
 				windower.chat.input:schedule(6.9,'/ma "'..skillchain.second_spell..'" '..player.target.id)
 			end
 		elseif last_character == '3' then
@@ -529,8 +529,8 @@ function handle_job_elemental(command, target)
 				windower.chat.input:schedule(16.8,'/ma "Thunder" '..player.target.id)
 				windower.chat.input:schedule(21.1,'/ja "Immanence" <me>')
 				windower.chat.input:schedule(22.4,'/ma "Fire" '..player.target.id)
-				windower.chat.input:schedule(26.7,'/ja "Immanence" <me>')
-				windower.chat.input:schedule(28,'/ma "Thunder" '..player.target.id)
+				windower.chat.input:schedule(26.6,'/ja "Immanence" <me>')
+				windower.chat.input:schedule(27.8,'/ma "Thunder" '..player.target.id)
 			end
 		elseif command == 'wsskillchain' then
 			if player.tp < 1000 then
@@ -568,7 +568,7 @@ function handle_job_elemental(command, target)
 			else
 				if not state.Buff['Immanence'] then windower.chat.input('/ja "Immanence" <me>') end
 				windower.chat.input:schedule(1.3,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..state.ElementalMode.value..' CLOSE!')
-				windower.chat.input:schedule(1.3,'/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target)
+				windower.chat.input:schedule(1.3,'/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target..'')
 			end
 		end
 		return true
@@ -604,19 +604,19 @@ end
 buff_spell_lists = {
 	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
 		{Name='Haste',		Buff='Haste',		SpellID=57,		When='Always'},
-		{Name='Stoneskin',	Buff='Stoneskin',	SpellID=54,		When='Always'},
-		{Name='Klimaform',	Buff='Klimaform',	SpellID=287,	When='Combat'},
+		--{Name='Stoneskin',	Buff='Stoneskin',	SpellID=54,		When='Idle'},
+		{Name='Klimaform',	Buff='Klimaform',	SpellID=287,	When='Always'},
 	},
 
 	Default = {
-		{Name='Reraise',	Buff='Reraise',		SpellID=113,	Reapply=false},
+		{Name='Reraise III',	Buff='Reraise',		SpellID=142,	Reapply=false},
 		{Name='Haste',		Buff='Haste',		SpellID=57,		Reapply=false},
-		{Name='Refresh',	Buff='Refresh',		SpellID=109,	Reapply=false},
+--		{Name='Refresh',	Buff='Refresh',		SpellID=109,	Reapply=false},
 		{Name='Aquaveil',	Buff='Aquaveil',	SpellID=55,		Reapply=false},
 		{Name='Stoneskin',	Buff='Stoneskin',	SpellID=54,		Reapply=false},
-		{Name='Klimaform',	Buff='Klimaform',	SpellID=287,	Reapply=false},
+--		{Name='Klimaform',	Buff='Klimaform',	SpellID=287,	Reapply=false},
 		{Name='Blink',		Buff='Blink',		SpellID=53,		Reapply=false},
-		{Name='Regen',		Buff='Regen',		SpellID=108,	Reapply=false},
+		{Name='Regen V',		Buff='Regen',		SpellID=504,	Reapply=false},
 		{Name='Phalanx',	Buff='Phalanx',		SpellID=106,	Reapply=false},
 	},
 }
